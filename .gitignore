@@ -1,3 +1,3 @@
 node_modules
-.nyc_out
+.nyc_output
 coverage
