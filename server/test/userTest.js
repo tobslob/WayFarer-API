@@ -6,7 +6,8 @@ import {
   invalidFirstNameCharacter, undefinedLastName, invalidLastNameLength,
   invalidLastNameCharacter, undefinedEmail, invalidAddressLength, invalidEmailCharacter,
   existingEmail, undefinedPassword, invalidPasswordLength, emptyAddress, emptyEmail,
-  emptyFirstName, emptyLastName,
+  emptyFirstName, emptyLastName, correctLogin, undefinedEmailLogin, undefinedPasswordLogin,
+  nonExistingEmail, emptyPasswordField, emptyEmailField, correctEmailIncorrectPassword,
 } from './mockData/mockUser';
 
 // Define the expect assertion
@@ -16,6 +17,7 @@ const { expect } = chai;
 chai.use(chaiHttp);
 
 const signupUrl = '/api/v1/auth/signup';
+const signinUrl = '/api/v1/auth/signin';
 
 
 describe(`POST ${signupUrl}`, () => {
@@ -307,6 +309,144 @@ describe(`POST ${signupUrl}`, () => {
         expect(body).to.be.an('object');
         expect(body).to.be.have.property('error');
         expect(body.error).to.be.equal('last name field is required with min length of 3 and must be alphabet');
+        done();
+      });
+  });
+});
+
+
+describe(`POST ${signinUrl}`, () => {
+  it('should successfully login user', (done) => {
+    chai
+      .request(app)
+      .post(signinUrl)
+      .send(correctLogin)
+      .end((err, res) => {
+        const { body } = res;
+        expect(res.status).to.be.equal(200);
+        expect(res.status).to.be.a('number');
+        expect(body).to.be.an('object');
+        expect(body).to.have.a.property('status');
+        expect(body).to.have.a.property('token');
+        done();
+      });
+  });
+
+  it('should successfully login user', (done) => {
+    chai
+      .request(app)
+      .post(signinUrl)
+      .send(undefinedEmailLogin)
+      .end((err, res) => {
+        const { body } = res;
+        expect(res.status).to.be.equal(400);
+        expect(res.status).to.be.a('number');
+        expect(body).to.be.an('object');
+        expect(body).to.have.a.property('status');
+        expect(body).to.have.a.property('error');
+        expect(body.error).to.be.equal('Email is required');
+        done();
+      });
+  });
+
+  it('should successfully login user', (done) => {
+    chai
+      .request(app)
+      .post(signinUrl)
+      .send(undefinedEmailLogin)
+      .end((err, res) => {
+        const { body } = res;
+        expect(res.status).to.be.equal(400);
+        expect(res.status).to.be.a('number');
+        expect(body).to.be.an('object');
+        expect(body).to.have.a.property('status');
+        expect(body).to.have.a.property('error');
+        expect(body.error).to.be.equal('Email is required');
+        done();
+      });
+  });
+
+  it('should return 400 if no password', (done) => {
+    chai
+      .request(app)
+      .post(signinUrl)
+      .send(undefinedPasswordLogin)
+      .end((err, res) => {
+        const { body } = res;
+        expect(res.status).to.be.equal(400);
+        expect(res.status).to.be.a('number');
+        expect(body).to.be.an('object');
+        expect(body).to.have.a.property('status');
+        expect(body).to.have.a.property('error');
+        expect(body.error).to.be.equal('you must provide a correct password');
+        done();
+      });
+  });
+
+  it('should return 404 if login not found', (done) => {
+    chai
+      .request(app)
+      .post(signinUrl)
+      .send(nonExistingEmail)
+      .end((err, res) => {
+        const { body } = res;
+        expect(res.status).to.be.equal(404);
+        expect(res.status).to.be.a('number');
+        expect(body).to.be.an('object');
+        expect(body).to.have.a.property('status');
+        expect(body).to.have.a.property('error');
+        expect(body.error).to.be.equal('User not Found');
+        done();
+      });
+  });
+
+  it('should return 400 if no password provided', (done) => {
+    chai
+      .request(app)
+      .post(signinUrl)
+      .send(emptyPasswordField)
+      .end((err, res) => {
+        const { body } = res;
+        expect(res.status).to.be.equal(400);
+        expect(res.status).to.be.a('number');
+        expect(body).to.be.an('object');
+        expect(body).to.have.a.property('status');
+        expect(body).to.have.a.property('error');
+        expect(body.error).to.be.equal('you must provide a correct password');
+        done();
+      });
+  });
+
+  it('should return 400 if no email provided', (done) => {
+    chai
+      .request(app)
+      .post(signinUrl)
+      .send(emptyEmailField)
+      .end((err, res) => {
+        const { body } = res;
+        expect(res.status).to.be.equal(400);
+        expect(res.status).to.be.a('number');
+        expect(body).to.be.an('object');
+        expect(body).to.have.a.property('status');
+        expect(body).to.have.a.property('error');
+        expect(body.error).to.be.equal('Email is required');
+        done();
+      });
+  });
+
+  it('should return 401 if incorrect email or password', (done) => {
+    chai
+      .request(app)
+      .post(signinUrl)
+      .send(correctEmailIncorrectPassword)
+      .end((err, res) => {
+        const { body } = res;
+        expect(res.status).to.be.equal(401);
+        expect(res.status).to.be.a('number');
+        expect(body).to.be.an('object');
+        expect(body).to.have.a.property('status');
+        expect(body).to.have.a.property('error');
+        expect(body.error).to.be.equal('Email/Password incorrect');
         done();
       });
   });
