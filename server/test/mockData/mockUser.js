@@ -160,10 +160,46 @@ const whitespacePassword = {
   password: ' ',
 };
 
+const correctLogin = {
+  email: 'jamesdoe@gmail.com',
+  password: 'jamesdoe',
+};
+
+const undefinedEmailLogin = {
+  password: 'johndoe',
+};
+
+
+const nonExistingEmail = {
+  email: 'Jamesdoe@gmial.com',
+  password: 'jamesdoe',
+};
+
+const undefinedPasswordLogin = {
+  email: 'johndoe@gmail.com',
+};
+
+const emptyPasswordField = {
+  email: 'jamesdoe@gmail.com',
+  password: '',
+};
+
+const emptyEmailField = {
+  email: '',
+  password: 'jamesdoe',
+};
+
+const correctEmailIncorrectPassword = {
+  email: 'jamesdoe@gmail.com',
+  password: 'Jamesdroeh',
+};
+
 export {
   correctUser, undefinedFirstName, undefinedAddress, InvalidAddressCharacter,
   invalidFirstNameLength, invalidFirstNameCharacter, emptyAddress, emptyEmail,
   emptyFirstName, emptyLastName, undefinedLastName, invalidLastNameLength, invalidAddressLength,
   invalidLastNameCharacter, undefinedEmail, invalidEmailLength, invalidEmailCharacter,
-  existingEmail, undefinedPassword, invalidPasswordLength, whitespacePassword,
+  existingEmail, undefinedPassword, invalidPasswordLength, whitespacePassword, correctLogin,
+  undefinedEmailLogin, nonExistingEmail, undefinedPasswordLogin, emptyPasswordField,
+  emptyEmailField, correctEmailIncorrectPassword,
 };

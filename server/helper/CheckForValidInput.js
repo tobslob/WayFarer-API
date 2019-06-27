@@ -26,6 +26,21 @@ class CheckForValidInput {
     });
     return Joi.validate(user, schema);
   }
+
+  /**  funtion to validate login inputs
+     * @param{details} string
+     */
+  static loginAuser(details) {
+    const schema = Joi.object().keys({
+      email: Joi.string().email().trim()
+        .required()
+        .error(() => 'Email is required'),
+      password: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/).trim().strict()
+        .required()
+        .error(() => 'you must provide a correct password'),
+    });
+    return Joi.validate(details, schema);
+  }
 }
 
 export default CheckForValidInput;
