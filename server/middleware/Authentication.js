@@ -47,8 +47,8 @@ class Authentication {
       // verify user provided token against existing token
       const decoded = await jwt.verify(token, process.env.SECRET_KEY);
 
-      const queryString = 'SELECT * FROM users WHERE id = $1';
-      const { rows } = await Db.query(queryString, [decoded.id]);
+      const queryString = 'SELECT * FROM users WHERE user_id = $1';
+      const { rows } = await Db.query(queryString, [decoded.user_id]);
 
       // check for valid app users
       if (!rows[0]) {
@@ -63,6 +63,12 @@ class Authentication {
 
       return next();
     } catch (errors) {
+      if (errors.name === 'TokenExpiredError') {
+        return res.status(409).json({
+          status: 'error',
+          error: 'Token Expired, please re log in',
+        });
+      }
       return res.status(400).json({
         status: 400,
         error: 'something went wrong, retry or contact admin',

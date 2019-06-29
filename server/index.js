@@ -3,6 +3,7 @@ import morgan from 'morgan';
 import express from 'express';
 import bodyparser from 'body-parser';
 import user from './routes/api/user';
+import trip from './routes/api/trip';
 
 const app = express();
 
@@ -12,6 +13,7 @@ app.use(bodyparser.json());
 
 // API routes
 app.use('/api/v1/auth', user);
+app.use('/api/v1', trip);
 
 // Home page route
 app.get('/', (req, res) => {
