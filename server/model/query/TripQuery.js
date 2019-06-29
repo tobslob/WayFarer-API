@@ -8,13 +8,10 @@ bus (number_plate, manufacturer, model, year, capacity, created_on)
       VALUES($1, $2, $3, $4, $5, $6) 
       returning *`;
 
-const getATripQuery = '';
-
-const getAllTripQuery = '';
+const getAllTripQuery = 'SELECT * FROM trip';
 
 export {
   createTripQuery,
   createBusQuery,
-  getATripQuery,
   getAllTripQuery,
 };
