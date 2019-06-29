@@ -41,6 +41,62 @@ class CheckForValidInput {
     });
     return Joi.validate(details, schema);
   }
+
+
+  /**
+   * funtion to check if trip input are valid
+   * @param {trip} object
+   */
+  static createAtrip(trip) {
+    const schema = Joi.object().keys({
+      bus_id: Joi.number().integer().min(1)
+        .required()
+        .error(() => 'bus id is required and should be an integer number'),
+      origin: Joi.string().trim().strict().regex(/^[a-zA-Z]+$/)
+        .min(3)
+        .required()
+        .error(() => 'origin is required and should not be less than 3 characters'),
+      destination: Joi.string().trim().strict().regex(/^[a-zA-Z]+$/)
+        .min(3)
+        .required()
+        .error(() => 'destination is required and should not be less than 3 characters'),
+      trip_date: Joi.date().required()
+        .error(() => 'trip date is required'),
+      fare: Joi.number().min(1)
+        .required()
+        .error(() => 'fare is required and can not be less than $1'),
+    });
+    return Joi.validate(trip, schema);
+  }
+
+
+  /**
+   * funtion to add bus database for trips
+   * @param {bus} object
+   */
+  static addBusForTrip(bus) {
+    const schema = Joi.object().keys({
+      number_plate: Joi.string().trim().strict().regex(/B[a-zA-Z]{3}-\d{3}/)
+        .required()
+        .error(() => 'Number plate is required and must be correct plate-number format'),
+      manufacturer: Joi.string().trim().strict().regex(/^[a-zA-Z]+$/)
+        .min(3)
+        .required()
+        .error(() => 'bus manufacturer is required'),
+      year: Joi.string().trim().strict().regex(/^[0-9]*$/)
+        .min(4)
+        .required()
+        .error(() => 'Correct year format is required'),
+      capacity: Joi.number().integer().min(4)
+        .required()
+        .error(() => 'Bus capacity is required'),
+      model: Joi.string().trim().strict().regex(/^[a-zA-Z]+$/)
+        .min(3)
+        .required()
+        .error(() => 'bus model is required'),
+    });
+    return Joi.validate(bus, schema);
+  }
 }
 
 export default CheckForValidInput;
