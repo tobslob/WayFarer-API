@@ -270,3 +270,22 @@ describe(`POST ${busUrl}`, () => {
       });
   });
 });
+
+
+describe(`GET ${tripUrl}`, () => {
+  it('should create a trip successful', (done) => {
+    chai
+      .request(app)
+      .get(tripUrl)
+      .set('token', Token)
+      .end((err, res) => {
+        const { body } = res;
+        expect(res.status).to.equal(200);
+        expect(res.status).to.be.a('number');
+        expect(body).to.be.an('object');
+        expect(body).to.have.property('data');
+        expect(body.data).to.be.an('array');
+        done();
+      });
+  });
+});

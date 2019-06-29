@@ -1,6 +1,6 @@
 import db from '../model/Db';
 import CheckForValidInput from '../helper/CheckForValidInput';
-import { createTripQuery, createBusQuery } from '../model/query/TripQuery';
+import { createTripQuery, createBusQuery, getAllTripQuery } from '../model/query/TripQuery';
 
 class Trip {
   /**
@@ -97,6 +97,25 @@ class Trip {
       }
       return res.status(400).json({
         status: 'error',
+        error: 'Something went wrong, try again',
+      });
+    }
+  }
+
+  /**
+   * Admin and user
+ *@param {req} object
+ *@param {res} object
+ */
+  static async getAllTrips(req, res) {
+    try {
+      const { rows } = await db.query(getAllTripQuery);
+      return res.status(200).json({
+        status: 'success',
+        data: rows,
+      });
+    } catch (error) {
+      return res.status(400).json({
         error: 'Something went wrong, try again',
       });
     }
