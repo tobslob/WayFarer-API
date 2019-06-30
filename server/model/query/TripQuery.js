@@ -8,10 +8,16 @@ bus (number_plate, manufacturer, model, year, capacity, created_on)
       VALUES($1, $2, $3, $4, $5, $6) 
       returning *`;
 
+const cancelAtripQuery = `UPDATE trip
+      SET status=$1, modified_on=$2
+      WHERE trip_id=$3 returning *`;
+
+
 const getAllTripQuery = 'SELECT * FROM trip';
 
 export {
   createTripQuery,
   createBusQuery,
   getAllTripQuery,
+  cancelAtripQuery,
 };

@@ -1,6 +1,11 @@
 import db from '../model/Db';
 import CheckForValidInput from '../helper/CheckForValidInput';
-import { createTripQuery, createBusQuery, getAllTripQuery } from '../model/query/TripQuery';
+import {
+  createTripQuery,
+  createBusQuery,
+  getAllTripQuery,
+  cancelAtripQuery,
+} from '../model/query/TripQuery';
 
 class Trip {
   /**
@@ -116,6 +121,51 @@ class Trip {
       });
     } catch (error) {
       return res.status(400).json({
+        error: 'Something went wrong, try again',
+      });
+    }
+  }
+
+  /**
+       * Admin can cancel a trip
+       * @param {*} req
+       * @param {*} res
+       */
+  static async cancelATrip(req, res) {
+    // check for admin user
+    if (!req.user.is_admin) {
+      return res.status(403).json({
+        error: 'Unauthorized!, Admin only route',
+      });
+    }
+    const { error } = CheckForValidInput.checkParams(req.params);
+    if (error) {
+      return res.status(400).json({
+        status: 'error',
+        error: error.details[0].message,
+      });
+    }
+    try {
+      const values = [
+        'cancelled',
+        new Date(),
+        req.params.trip_id,
+      ];
+
+      const { rows } = await db.query(cancelAtripQuery, values);
+      if (rows.length <= 0) {
+        return res.status(404).json({
+          status: 'error',
+          error: 'No trip found with such ID',
+        });
+      }
+      return res.status(200).json({
+        status: 'success',
+        data: rows[0],
+      });
+    } catch (err) {
+      return res.status(400).json({
+        status: 'error',
         error: 'Something went wrong, try again',
       });
     }
