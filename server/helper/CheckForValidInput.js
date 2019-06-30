@@ -97,6 +97,19 @@ class CheckForValidInput {
     });
     return Joi.validate(bus, schema);
   }
+
+  /**
+   * funtion to check valid trip id
+   * @param {trip_id} object
+   */
+  static checkParams(trip_id) {
+    const schema = Joi.object().keys({
+      trip_id: Joi.number().integer()
+        .required()
+        .error(() => 'Params must be integer!'),
+    });
+    return Joi.validate(trip_id, schema);
+  }
 }
 
 export default CheckForValidInput;

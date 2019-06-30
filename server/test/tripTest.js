@@ -26,6 +26,7 @@ const tripUrl = '/api/v1/trips';
 const signinUrl = '/api/v1/auth/signin';
 const busUrl = '/api/v1/trips/bus';
 
+
 describe(`POST ${tripUrl}`, () => {
   it('should successfully login user', (done) => {
     chai
@@ -171,7 +172,6 @@ describe(`POST ${busUrl}`, () => {
       .send(correctBusDetails)
       .end((err, res) => {
         const { body } = res;
-        console.log(body);
         expect(res.status).to.equal(201);
         expect(res.status).to.be.a('number');
         expect(body).to.be.an('object');
@@ -285,6 +285,53 @@ describe(`GET ${tripUrl}`, () => {
         expect(body).to.be.an('object');
         expect(body).to.have.property('data');
         expect(body.data).to.be.an('array');
+        done();
+      });
+  });
+});
+
+describe(`UPDATE ${tripUrl}`, () => {
+  it('should create a trip successful', (done) => {
+    chai
+      .request(app)
+      .patch('/api/v1/trips/1')
+      .set('token', Token)
+      .end((err, res) => {
+        const { body } = res;
+        expect(res.status).to.equal(200);
+        expect(res.status).to.be.a('number');
+        expect(body).to.be.an('object');
+        expect(body).to.have.property('data');
+        done();
+      });
+  });
+
+  it('should return 404 if trip is not present', (done) => {
+    chai
+      .request(app)
+      .patch('/api/v1/trips/10000')
+      .set('token', Token)
+      .end((err, res) => {
+        const { body } = res;
+        expect(res.status).to.equal(404);
+        expect(res.status).to.be.a('number');
+        expect(body).to.be.an('object');
+        expect(body).to.have.property('error');
+        done();
+      });
+  });
+
+  it('should not cancel a trip with invalid params', (done) => {
+    chai
+      .request(app)
+      .patch('/api/v1/trips/1.5')
+      .set('token', Token)
+      .end((err, res) => {
+        const { body } = res;
+        expect(res.status).to.equal(400);
+        expect(res.status).to.be.a('number');
+        expect(body).to.have.property('error');
+        expect(body.error).to.be.equal('Params must be integer!');
         done();
       });
   });
