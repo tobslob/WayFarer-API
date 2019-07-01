@@ -291,7 +291,7 @@ describe(`GET ${tripUrl}`, () => {
 });
 
 describe(`UPDATE ${tripUrl}`, () => {
-  it('should create a trip successful', (done) => {
+  it('should cancel a trip successful', (done) => {
     chai
       .request(app)
       .patch('/api/v1/trips/1')

@@ -110,6 +110,22 @@ class CheckForValidInput {
     });
     return Joi.validate(trip_id, schema);
   }
+
+  /**
+   * funtion to check valid booking inputs
+   * @param {trip_id} object
+   */
+  static checkBooking(trip_id) {
+    const schema = Joi.object().keys({
+      trip_id: Joi.number().integer()
+        .required()
+        .error(() => 'Trip ID must be an Integer number!'),
+      seat_number: Joi.number().integer()
+        .required()
+        .error(() => 'Seat number must be an Integer number!'),
+    });
+    return Joi.validate(trip_id, schema);
+  }
 }
 
 export default CheckForValidInput;
