@@ -4,6 +4,7 @@ import express from 'express';
 import bodyparser from 'body-parser';
 import user from './routes/api/user';
 import trip from './routes/api/trip';
+import bookings from './routes/api/bookings';
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(bodyparser.json());
 // API routes
 app.use('/api/v1/auth', user);
 app.use('/api/v1', trip);
+app.use('/api/v1', bookings);
 
 // Home page route
 app.get('/', (req, res) => {
