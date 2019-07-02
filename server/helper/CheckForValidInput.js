@@ -112,6 +112,19 @@ class CheckForValidInput {
   }
 
   /**
+   * funtion to check valid booking_id
+   * @param {booking_id} object
+   */
+  static checkBookParams(booking_id) {
+    const schema = Joi.object().keys({
+      booking_id: Joi.number().integer()
+        .required()
+        .error(() => 'Params must be integer!'),
+    });
+    return Joi.validate(booking_id, schema);
+  }
+
+  /**
    * funtion to check valid booking inputs
    * @param {trip_id} object
    */
