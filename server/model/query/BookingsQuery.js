@@ -17,6 +17,8 @@ const checkBookingsQuery = 'SELECT * FROM bookings WHERE (trip_id = $1 and seat_
 
 const checkIfBookingExistQuery = 'SELECT * FROM bookings WHERE (trip_id = $1 and user_id = $2)';
 
+const deleteBookingQuery = 'DELETE FROM bookings WHERE (booking_id = $1 and user_id = $2) returning *';
+
 export {
   bookTripQuery,
   getAtripQuery,
@@ -26,4 +28,5 @@ export {
   findAbusQuery,
   checkBookingsQuery,
   checkIfBookingExistQuery,
+  deleteBookingQuery,
 };
