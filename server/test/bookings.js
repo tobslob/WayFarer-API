@@ -249,7 +249,8 @@ describe(`DELETE ${bookingsUrl}`, () => {
         expect(res.status).to.be.a('number');
         expect(body).to.be.an('object');
         expect(body.status).to.be.equal('success');
-        expect(body.data).to.haveOwnProperty('Params must be integer!');
+        expect(body.data).to.haveOwnProperty('message');
+        expect(body.data.message).to.be.equal('Deleted successfully');
         done();
       });
   });
