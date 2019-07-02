@@ -2,7 +2,7 @@ import db from '../model/Db';
 import CheckForValidInput from '../helper/CheckForValidInput';
 import {
   bookTripQuery, getAtripQuery, findAuserQuery, findAbusQuery, checkBookingsQuery,
-  checkIfBookingExistQuery,
+  checkIfBookingExistQuery, getAllBookingsUserQuery, getAllBookingsAdminQuery,
 } from '../model/query/BookingsQuery';
 
 class Bookings {
@@ -83,6 +83,46 @@ class Bookings {
     } catch (errors) {
       return res.status(400).json({
         status: 'error',
+        error: 'Something went wrong, try again',
+      });
+    }
+  }
+
+
+  /**
+   * Admin can get all bookings and user can get
+   * his/her bookings only
+ *@param {req} object
+ *@param {res} object
+ */
+  static async getAllBookings(req, res) {
+    try {
+      if (req.user.is_admin) {
+        const { rows } = await db.query(getAllBookingsAdminQuery);
+        if (!rows[0]) {
+          return res.status(404).json({
+            status: 'error',
+            error: 'Not found',
+          });
+        }
+        return res.status(200).json({
+          status: 'success',
+          data: rows,
+        });
+      }
+      const { rows } = await db.query(getAllBookingsUserQuery, [req.user.email]);
+      if (!rows[0]) {
+        return res.status(404).json({
+          status: 'error',
+          error: 'Not found',
+        });
+      }
+      return res.status(200).json({
+        status: 'success',
+        data: rows,
+      });
+    } catch (error) {
+      return res.status(400).json({
         error: 'Something went wrong, try again',
       });
     }

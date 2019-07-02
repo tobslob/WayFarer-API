@@ -7,4 +7,7 @@ const router = express.Router();
 // book a seat in a trip
 router.post('/bookings', Authentication.verifyToken, Bookings.bookAtrip);
 
+// get all bookings
+router.get('/bookings', Authentication.verifyToken, Bookings.getAllBookings);
+
 export default router;

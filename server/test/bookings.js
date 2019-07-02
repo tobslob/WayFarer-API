@@ -138,3 +138,59 @@ describe(`POST ${bookingsUrl}`, () => {
       });
   });
 });
+
+
+describe(`GET ${bookingsUrl}`, () => {
+  it('should successfully login user', (done) => {
+    chai
+      .request(app)
+      .post(signinUrl)
+      .send({ email: 'kzmobileapp@gmail.com', password: 'Kazeem27' })
+      .end((err, res) => {
+        const { body } = res;
+        Token = body.token;
+        done();
+      });
+  });
+
+  it('should successfully login user', (done) => {
+    chai
+      .request(app)
+      .post(signinUrl)
+      .send({ email: 'jamesdoe@gmail.com', password: 'jamesdoe' })
+      .end((err, res) => {
+        const { body } = res;
+        Token1 = body.token;
+        done();
+      });
+  });
+  it('should get all bookings, if its admin', (done) => {
+    chai
+      .request(app)
+      .get(bookingsUrl)
+      .set('token', Token)
+      .end((err, res) => {
+        const { body } = res;
+        expect(res.status).to.equal(200);
+        expect(res.status).to.be.a('number');
+        expect(body).to.be.an('object');
+        expect(body.status).to.be.equal('success');
+        done();
+      });
+  });
+
+  it('should all bookinds in peculiar to a user', (done) => {
+    chai
+      .request(app)
+      .get(bookingsUrl)
+      .set('token', Token1)
+      .end((err, res) => {
+        const { body } = res;
+        expect(res.status).to.equal(404);
+        expect(res.status).to.be.a('number');
+        expect(body).to.have.property('error');
+        expect(body.error).to.be.equal('Not found');
+        done();
+      });
+  });
+});
