@@ -5,7 +5,9 @@ bookings (user_id, trip_id, created_on, bus_id, trip_date, seat_number, first_na
 
 const getAtripQuery = 'SELECT * FROM trip WHERE trip_id = $1';
 
-const getAllBookingQuery = 'SELECT * FROM bookings';
+const getAllBookingsAdminQuery = 'SELECT * FROM bookings';
+
+const getAllBookingsUserQuery = 'SELECT * FROM bookings WHERE email = $1';
 
 const findAuserQuery = 'SELECT * FROM users WHERE user_id = $1';
 
@@ -18,7 +20,8 @@ const checkIfBookingExistQuery = 'SELECT * FROM bookings WHERE (trip_id = $1 and
 export {
   bookTripQuery,
   getAtripQuery,
-  getAllBookingQuery,
+  getAllBookingsAdminQuery,
+  getAllBookingsUserQuery,
   findAuserQuery,
   findAbusQuery,
   checkBookingsQuery,

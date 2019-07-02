@@ -108,7 +108,7 @@ class Trip {
   }
 
   /**
-   * Admin and user
+   * Admin and user can get all trip
  *@param {req} object
  *@param {res} object
  */
