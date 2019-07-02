@@ -1,7 +1,5 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import assert from 'assert';
-import http from 'http';
 import app from '../index';
 
 // Define the expect assertion
@@ -43,13 +41,4 @@ it('should handle internal server error', (done) => {
       done();
     })
     .catch(error => done(error));
-});
-
-describe('HTTP Server', () => {
-  it('should return 200', (done) => {
-    http.get('http://localhost:5500', (res) => {
-      assert.equal(200, res.statusCode);
-      done();
-    });
-  });
 });
