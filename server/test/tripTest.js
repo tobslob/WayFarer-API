@@ -11,7 +11,7 @@ import {
   undefinedTripFare,
   correctBusDetails,
   undefinedNumberPlate, undefinedBusManufacturer, undefinedBusModel, undefinedBusYear,
-  undefinedBusCapacity,
+  undefinedBusCapacity, conflictTripDetails,
 } from './mockData/mockTrip';
 
 
@@ -22,6 +22,7 @@ const { expect } = chai;
 chai.use(chaiHttp);
 
 let Token;
+let Trip_id;
 const tripUrl = '/api/v1/trips';
 const signinUrl = '/api/v1/auth/signin';
 const busUrl = '/api/v1/trips/bus';
@@ -47,6 +48,7 @@ describe(`POST ${tripUrl}`, () => {
       .send(correctTripDetails)
       .end((err, res) => {
         const { body } = res;
+        Trip_id = body.data.trip_id;
         expect(res.status).to.equal(201);
         expect(res.status).to.be.a('number');
         expect(body).to.be.an('object');
@@ -55,6 +57,23 @@ describe(`POST ${tripUrl}`, () => {
         expect(body.data).to.be.have.property('destination');
         expect(body.data).to.be.have.property('trip_date');
         expect(body.data).to.be.have.property('status');
+        done();
+      });
+  });
+
+  it('should return 409 if bus has been schedule for a trip', (done) => {
+    chai
+      .request(app)
+      .post(tripUrl)
+      .set('token', Token)
+      .send(conflictTripDetails)
+      .end((err, res) => {
+        const { body } = res;
+        expect(res.status).to.equal(409);
+        expect(res.status).to.be.a('number');
+        expect(body).to.be.an('object');
+        expect(body).to.be.have.property('error');
+        expect(body.error).to.be.equal('The bus has been schedule for another trip for same date');
         done();
       });
   });
@@ -294,7 +313,7 @@ describe(`UPDATE ${tripUrl}`, () => {
   it('should cancel a trip successful', (done) => {
     chai
       .request(app)
-      .patch('/api/v1/trips/1')
+      .patch(`/api/v1/trips/${Trip_id}`)
       .set('token', Token)
       .end((err, res) => {
         const { body } = res;
