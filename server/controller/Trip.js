@@ -4,7 +4,7 @@ import {
   createTripQuery,
   createBusQuery,
   getAllTripQuery,
-  cancelAtripQuery,
+  cancelAtripQuery, checkIfBusIsAvailableQuery,
 } from '../model/query/TripQuery';
 
 class Trip {
@@ -88,6 +88,14 @@ class Trip {
       new Date(),
     ];
     try {
+      const bus = await db.query(checkIfBusIsAvailableQuery,
+        [req.body.trip_date, req.body.bus_id, 'active']);
+      if (bus.rows[0]) {
+        return res.status(409).json({
+          status: 'error',
+          error: 'The bus has been schedule for another trip for same date',
+        });
+      }
       const { rows } = await db.query(createTripQuery, values);
       return res.status(201).json({
         status: 'success',
