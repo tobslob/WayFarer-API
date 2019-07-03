@@ -4,7 +4,7 @@ import {
   createTripQuery,
   createBusQuery,
   getAllTripQuery,
-  cancelAtripQuery, checkIfBusIsAvailableQuery,
+  cancelAtripQuery, checkIfBusIsAvailableQuery, filterTripQuery,
 } from '../model/query/TripQuery';
 
 class Trip {
@@ -177,6 +177,44 @@ class Trip {
         error: 'Something went wrong, try again',
       });
     }
+  }
+
+
+  /**
+   * user can filter trip destination or origin
+ *@param {req} object
+ *@param {res} object
+ */
+  static async getTripByDestOrOrigin(req, res, next) {
+    const { error } = CheckForValidInput.checkTripParams(req.query);
+    if (error) {
+      return res.status(400).json({
+        status: 'error',
+        error: error.details[0].message,
+      });
+    }
+    const { destination, origin } = req.query;
+    if (destination || origin) {
+      try {
+        const { rows } = await db.query(filterTripQuery, [destination, origin]);
+        if (rows.length <= 0) {
+          return res.status(404).json({
+            status: 'error',
+            error: 'Not Found',
+          });
+        }
+        return res.status(200).json({
+          status: 'success',
+          data: rows,
+        });
+      } catch (errors) {
+        return res.status(400).json({
+          status: 'error',
+          error: 'Something went wrong, try again',
+        });
+      }
+    }
+    return next();
   }
 }
 
