@@ -125,7 +125,7 @@ describe(`POST ${tripUrl}`, () => {
         expect(res.status).to.be.a('number');
         expect(body).to.be.an('object');
         expect(body).to.be.have.property('error');
-        expect(body.error).to.be.equal('destination is required and should not be less than 3 characters');
+        expect(body.error).to.be.equal('destination is required and should not be less than 3 characters and must be lowercase');
         done();
       });
   });
@@ -142,7 +142,7 @@ describe(`POST ${tripUrl}`, () => {
         expect(res.status).to.be.a('number');
         expect(body).to.be.an('object');
         expect(body).to.be.have.property('error');
-        expect(body.error).to.be.equal('origin is required and should not be less than 3 characters');
+        expect(body.error).to.be.equal('origin is required and should not be less than 3 characters and must be lowercase');
         done();
       });
   });
@@ -292,7 +292,7 @@ describe(`POST ${busUrl}`, () => {
 
 
 describe(`GET ${tripUrl}`, () => {
-  it('should create a trip successful', (done) => {
+  it('should get trips successful', (done) => {
     chai
       .request(app)
       .get(tripUrl)
@@ -304,6 +304,92 @@ describe(`GET ${tripUrl}`, () => {
         expect(body).to.be.an('object');
         expect(body).to.have.property('data');
         expect(body.data).to.be.an('array');
+        done();
+      });
+  });
+  it('should filter trips successful', (done) => {
+    chai
+      .request(app)
+      .get(`${tripUrl}?origin=yaba`)
+      .set('token', Token)
+      .end((err, res) => {
+        const { body } = res;
+        expect(res.status).to.equal(200);
+        expect(res.status).to.be.a('number');
+        expect(body).to.be.an('object');
+        expect(body).to.have.property('data');
+        expect(body.data).to.be.an('array');
+        done();
+      });
+  });
+  it('should filter trips successful', (done) => {
+    chai
+      .request(app)
+      .get(`${tripUrl}?destination=ikoyi`)
+      .set('token', Token)
+      .end((err, res) => {
+        const { body } = res;
+        expect(res.status).to.equal(200);
+        expect(res.status).to.be.a('number');
+        expect(body).to.be.an('object');
+        expect(body).to.have.property('data');
+        expect(body.data).to.be.an('array');
+        done();
+      });
+  });
+  it('should filter trips successful', (done) => {
+    chai
+      .request(app)
+      .get(`${tripUrl}?destination=Ikoyi`)
+      .set('token', Token)
+      .end((err, res) => {
+        const { body } = res;
+        expect(res.status).to.equal(400);
+        expect(res.status).to.be.a('number');
+        expect(body).to.be.an('object');
+        expect(body).to.have.property('error');
+        done();
+      });
+  });
+  it('should filter trips successful', (done) => {
+    chai
+      .request(app)
+      .get(`${tripUrl}?origin=Ikoyi`)
+      .set('token', Token)
+      .end((err, res) => {
+        const { body } = res;
+        expect(res.status).to.equal(400);
+        expect(res.status).to.be.a('number');
+        expect(body).to.be.an('object');
+        expect(body).to.have.property('error');
+        done();
+      });
+  });
+  it('should return 404 if wrong origin', (done) => {
+    chai
+      .request(app)
+      .get(`${tripUrl}?origin=abia`)
+      .set('token', Token)
+      .end((err, res) => {
+        const { body } = res;
+        expect(res.status).to.equal(404);
+        expect(res.status).to.be.a('number');
+        expect(body).to.be.an('object');
+        expect(body).to.have.property('error');
+        done();
+      });
+  });
+  it('should return 404 if wrong destination', (done) => {
+    chai
+      .request(app)
+      .get(`${tripUrl}?destination=ilupej`)
+      .set('token', Token)
+      .end((err, res) => {
+        const { body } = res;
+        expect(res.status).to.equal(404);
+        expect(res.status).to.be.a('number');
+        expect(body).to.be.an('object');
+        expect(body).to.have.property('error');
         done();
       });
   });

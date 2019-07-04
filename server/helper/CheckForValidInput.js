@@ -52,14 +52,14 @@ class CheckForValidInput {
       bus_id: Joi.number().integer().min(1)
         .required()
         .error(() => 'bus id is required and should be an integer number'),
-      origin: Joi.string().trim().strict().regex(/^[a-zA-Z]+$/)
+      origin: Joi.string().trim().strict().regex(/^[a-z]+$/)
         .min(3)
         .required()
-        .error(() => 'origin is required and should not be less than 3 characters'),
-      destination: Joi.string().trim().strict().regex(/^[a-zA-Z]+$/)
+        .error(() => 'origin is required and should not be less than 3 characters and must be lowercase'),
+      destination: Joi.string().trim().strict().regex(/^[a-z]+$/)
         .min(3)
         .required()
-        .error(() => 'destination is required and should not be less than 3 characters'),
+        .error(() => 'destination is required and should not be less than 3 characters and must be lowercase'),
       trip_date: Joi.date().required()
         .error(() => 'trip date is required'),
       fare: Joi.number().min(1)
@@ -138,6 +138,21 @@ class CheckForValidInput {
         .error(() => 'Seat number must be an Integer number!'),
     });
     return Joi.validate(trip_id, schema);
+  }
+
+  /**
+   * funtion to check valid params strings to
+   * filter trip by users
+   * @param {filterTrip} object
+   */
+  static checkTripParams(filterTrip) {
+    const schema = Joi.object().keys({
+      destination: Joi.string().trim().strict().lowercase()
+        .error(() => 'Enter a valid lowercase string value'),
+      origin: Joi.string().trim().strict().lowercase()
+        .error(() => 'Enter a valid lowercase string value'),
+    });
+    return Joi.validate(filterTrip, schema);
   }
 }
 

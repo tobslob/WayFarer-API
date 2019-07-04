@@ -1,59 +1,59 @@
 const correctTripDetails = {
   bus_id: 2,
-  origin: 'Yaba',
-  destination: 'Ikoyi',
+  origin: 'yaba',
+  destination: 'ikoyi',
   trip_date: 'December 17, 1995 03:24:00',
   fare: 4300,
 };
 
 const conflictTripDetails = {
   bus_id: 1,
-  origin: 'Yaba',
-  destination: 'Ikoyi',
+  origin: 'yaba',
+  destination: 'ikoyi',
   trip_date: 'December 17, 1995 03:24:00',
   fare: 4300,
 };
 
 const undefinedTripBusId = {
-  origin: 'Yaba',
-  destination: 'Ikoyi',
+  origin: 'yaba',
+  destination: 'ikoyi',
   trip_date: 'December 17, 1995 03:24:00',
   fare: 4300,
 };
 
 const incorrectTripBusId = {
   bus_id: 3000,
-  origin: 'Yaba',
-  destination: 'Ikoyi',
+  origin: 'yaba',
+  destination: 'ikoyi',
   trip_date: 'December 17, 1995 03:24:00',
   fare: 4300,
 };
 
 const undefinedTripFare = {
   bus_id: 3000,
-  origin: 'Yaba',
-  destination: 'Ikoyi',
+  origin: 'yaba',
+  destination: 'ikoyi',
   trip_date: 'December 17, 1995 03:24:00',
 };
 
 const undefinedTripOrigin = {
   bus_id: 1,
-  destination: 'Ikoyi',
+  destination: 'ikoyi',
   trip_date: 'December 17, 1995 03:24:00',
   fare: 4300,
 };
 
 const undefinedTripDestination = {
   bus_id: 1,
-  origin: 'Yaba',
+  origin: 'yaba',
   trip_date: 'December 17, 1995 03:24:00',
   fare: 4300,
 };
 
 const undefinedTripDate = {
   bus_id: 1,
-  origin: 'Yaba',
-  destination: 'Ikoyi',
+  origin: 'yaba',
+  destination: 'ikoyi',
   fare: 4300,
 };
 
