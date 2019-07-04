@@ -1,6 +1,7 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../index';
+import { correctTripDetails } from './mockData/mockTrip';
 
 // Define the expect assertion
 const { expect } = chai;
@@ -11,8 +12,10 @@ chai.use(chaiHttp);
 let Token;
 let Token1;
 let Booking_id;
+let Trip_id;
 const bookingsUrl = '/api/v1/bookings';
 const signinUrl = '/api/v1/auth/signin';
+const tripUrl = '/api/v1/trips';
 
 describe(`POST ${bookingsUrl}`, () => {
   it('should successfully login user', (done) => {
@@ -39,15 +42,30 @@ describe(`POST ${bookingsUrl}`, () => {
       });
   });
 
+  it('should create a trip successful', (done) => {
+    chai
+      .request(app)
+      .post(tripUrl)
+      .set('token', Token)
+      .send(correctTripDetails)
+      .end((err, res) => {
+        const { body } = res;
+        Trip_id = body.data.trip_id;
+        done();
+      });
+  });
+
+
   it('should book a trip successfully', (done) => {
     chai
       .request(app)
       .post(bookingsUrl)
       .set('token', Token)
-      .send({ trip_id: 209, seat_number: 1 })
+      .send({ trip_id: `${Trip_id}`, seat_number: 1 })
       .end((err, res) => {
         const { body } = res;
         Booking_id = body.data.booking_id;
+        Trip_id = body.data.trip_id;
         expect(res.status).to.equal(201);
         expect(res.status).to.be.a('number');
         expect(body).to.be.an('object');
@@ -60,7 +78,7 @@ describe(`POST ${bookingsUrl}`, () => {
       .request(app)
       .post(bookingsUrl)
       .set('token', Token)
-      .send({ trip_id: 20, seat_number: 2 })
+      .send({ trip_id: `${Trip_id}`, seat_number: 1 })
       .end((err, res) => {
         const { body } = res;
         expect(res.status).to.equal(400);
@@ -68,23 +86,6 @@ describe(`POST ${bookingsUrl}`, () => {
         expect(body).to.be.an('object');
         expect(body).to.be.have.property('error');
         expect(body.error).to.be.equal('You already booked a seat for the trip');
-        done();
-      });
-  });
-
-  it('should not book a cancel trip', (done) => {
-    chai
-      .request(app)
-      .post(bookingsUrl)
-      .set('token', Token)
-      .send({ trip_id: 1, seat_number: 2 })
-      .end((err, res) => {
-        const { body } = res;
-        expect(res.status).to.equal(400);
-        expect(res.status).to.be.a('number');
-        expect(body).to.be.an('object');
-        expect(body).to.be.have.property('error');
-        expect(body.error).to.be.equal('This trip has been cancelled, you can not book it');
         done();
       });
   });
@@ -110,7 +111,7 @@ describe(`POST ${bookingsUrl}`, () => {
       .request(app)
       .post(bookingsUrl)
       .set('token', Token1)
-      .send({ trip_id: 20, seat_number: 2 })
+      .send({ trip_id: `${Trip_id}`, seat_number: 1 })
       .end((err, res) => {
         const { body } = res;
         expect(res.status).to.equal(400);
@@ -214,6 +215,84 @@ describe(`GET ${bookingsUrl}`, () => {
 });
 
 
+describe(`PATCH ${bookingsUrl}`, () => {
+  it('should successfully login user', (done) => {
+    chai
+      .request(app)
+      .post(signinUrl)
+      .send({ email: 'kzmobileapp@gmail.com', password: 'Kazeem27' })
+      .end((err, res) => {
+        const { body } = res;
+        Token = body.token;
+        done();
+      });
+  });
+
+  it('should successfully login user', (done) => {
+    chai
+      .request(app)
+      .post(signinUrl)
+      .send({ email: 'jamesdoe@gmail.com', password: 'jamesdoe' })
+      .end((err, res) => {
+        const { body } = res;
+        Token1 = body.token;
+        done();
+      });
+  });
+  it('should change bookings seat successfully', (done) => {
+    chai
+      .request(app)
+      .patch(`${bookingsUrl}/${Booking_id}`)
+      .set('token', Token)
+      .send({ trip_id: `${Trip_id}`, seat_number: 7 })
+      .end((err, res) => {
+        const { body } = res;
+        expect(res.status).to.equal(200);
+        expect(res.status).to.be.a('number');
+        expect(body).to.be.an('object');
+        expect(body).to.have.property('status');
+        expect(body).to.have.property('data');
+        done();
+      });
+  });
+
+  it('should return 404 and not change bookings seat', (done) => {
+    chai
+      .request(app)
+      .patch(`${bookingsUrl}/${Booking_id}`)
+      .set('token', Token1)
+      .send({ trip_id: `${Trip_id}`, seat_number: 7 })
+      .end((err, res) => {
+        const { body } = res;
+        expect(res.status).to.equal(400);
+        expect(res.status).to.be.a('number');
+        expect(body).to.be.an('object');
+        expect(body).to.have.property('error');
+        expect(body.error).to.be.equal('Seat has been occuppied, choose another seat');
+        done();
+      });
+  });
+
+  it('should return 404 and not change bookings seat', (done) => {
+    chai
+      .request(app)
+      .patch(`${bookingsUrl}/${Booking_id}`)
+      .set('token', Token)
+      .send({ trip_id: `${Trip_id}`, seat_number: 87 })
+      .end((err, res) => {
+        const { body } = res;
+        console.log(err);
+        expect(res.status).to.equal(400);
+        expect(res.status).to.be.a('number');
+        expect(body).to.be.an('object');
+        expect(body).to.have.property('error');
+        expect(body.error).to.be.equal('seat not available, choose a lower seat number');
+        done();
+      });
+  });
+});
+
+
 describe(`DELETE ${bookingsUrl}`, () => {
   it('should successfully login user', (done) => {
     chai
@@ -281,6 +360,37 @@ describe(`DELETE ${bookingsUrl}`, () => {
         expect(res.status).to.be.a('number');
         expect(body).to.have.property('error');
         expect(body.error).to.be.equal('Params must be integer!');
+        done();
+      });
+  });
+
+  it('should cancel a trip successful', (done) => {
+    chai
+      .request(app)
+      .patch(`/api/v1/trips/${Trip_id}`)
+      .set('token', Token)
+      .end((err, res) => {
+        const { body } = res;
+        expect(res.status).to.equal(200);
+        expect(res.status).to.be.a('number');
+        expect(body).to.be.an('object');
+        expect(body).to.have.property('data');
+        done();
+      });
+  });
+  it('should not book a cancel trip', (done) => {
+    chai
+      .request(app)
+      .post(bookingsUrl)
+      .set('token', Token1)
+      .send({ trip_id: `${Trip_id}`, seat_number: 2 })
+      .end((err, res) => {
+        const { body } = res;
+        expect(res.status).to.equal(400);
+        expect(res.status).to.be.a('number');
+        expect(body).to.be.an('object');
+        expect(body).to.be.have.property('error');
+        expect(body.error).to.be.equal('This trip has been canceled, you can not book it');
         done();
       });
   });
