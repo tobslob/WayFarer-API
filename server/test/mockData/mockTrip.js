@@ -1,5 +1,5 @@
 const correctTripDetails = {
-  bus_id: 2,
+  bus_id: 179,
   origin: 'yaba',
   destination: 'ikoyi',
   trip_date: 'December 17, 1995 03:24:00',
@@ -7,7 +7,7 @@ const correctTripDetails = {
 };
 
 const conflictTripDetails = {
-  bus_id: 1,
+  bus_id: 179,
   origin: 'yaba',
   destination: 'ikoyi',
   trip_date: 'December 17, 1995 03:24:00',
@@ -37,28 +37,28 @@ const undefinedTripFare = {
 };
 
 const undefinedTripOrigin = {
-  bus_id: 1,
+  bus_id: 179,
   destination: 'ikoyi',
   trip_date: 'December 17, 1995 03:24:00',
   fare: 4300,
 };
 
 const undefinedTripDestination = {
-  bus_id: 1,
+  bus_id: 179,
   origin: 'yaba',
   trip_date: 'December 17, 1995 03:24:00',
   fare: 4300,
 };
 
 const undefinedTripDate = {
-  bus_id: 1,
+  bus_id: 179,
   origin: 'yaba',
   destination: 'ikoyi',
   fare: 4300,
 };
 
 const correctBusDetails = {
-  number_plate: 'BILR-2348',
+  number_plate: 'BILY-2348',
   manufacturer: 'Toyota',
   model: 'camry',
   year: '2015',

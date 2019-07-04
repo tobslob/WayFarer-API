@@ -19,6 +19,8 @@ const checkIfBookingExistQuery = 'SELECT * FROM bookings WHERE (trip_id = $1 and
 
 const deleteBookingQuery = 'DELETE FROM bookings WHERE (booking_id = $1 and user_id = $2) returning *';
 
+const updateBookingQuery = 'UPDATE bookings SET seat_number = $1 WHERE (email = $2 AND user_id = $3 AND booking_id = $4) returning *';
+
 export {
   bookTripQuery,
   getAtripQuery,
@@ -29,4 +31,5 @@ export {
   checkBookingsQuery,
   checkIfBookingExistQuery,
   deleteBookingQuery,
+  updateBookingQuery,
 };

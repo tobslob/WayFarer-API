@@ -155,7 +155,7 @@ class Trip {
     }
     try {
       const values = [
-        'cancelled',
+        'canceled',
         new Date(),
         req.params.trip_id,
       ];
