@@ -44,7 +44,7 @@ describe(`POST ${bookingsUrl}`, () => {
       .request(app)
       .post(bookingsUrl)
       .set('token', Token)
-      .send({ trip_id: 20, seat_number: 2 })
+      .send({ trip_id: 209, seat_number: 1 })
       .end((err, res) => {
         const { body } = res;
         Booking_id = body.data.booking_id;

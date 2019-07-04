@@ -310,7 +310,7 @@ describe(`GET ${tripUrl}`, () => {
   it('should filter trips successful', (done) => {
     chai
       .request(app)
-      .get(`${tripUrl}/?origin=yaba`)
+      .get(`${tripUrl}?origin=yaba`)
       .set('token', Token)
       .end((err, res) => {
         const { body } = res;
@@ -325,7 +325,7 @@ describe(`GET ${tripUrl}`, () => {
   it('should filter trips successful', (done) => {
     chai
       .request(app)
-      .get(`${tripUrl}/?destination=ikoyi`)
+      .get(`${tripUrl}?destination=ikoyi`)
       .set('token', Token)
       .end((err, res) => {
         const { body } = res;
@@ -340,7 +340,7 @@ describe(`GET ${tripUrl}`, () => {
   it('should filter trips successful', (done) => {
     chai
       .request(app)
-      .get(`${tripUrl}/?destination=Ikoyi`)
+      .get(`${tripUrl}?destination=Ikoyi`)
       .set('token', Token)
       .end((err, res) => {
         const { body } = res;
@@ -354,7 +354,7 @@ describe(`GET ${tripUrl}`, () => {
   it('should filter trips successful', (done) => {
     chai
       .request(app)
-      .get(`${tripUrl}/?origin=Ikoyi`)
+      .get(`${tripUrl}?origin=Ikoyi`)
       .set('token', Token)
       .end((err, res) => {
         const { body } = res;
@@ -368,7 +368,7 @@ describe(`GET ${tripUrl}`, () => {
   it('should return 404 if wrong origin', (done) => {
     chai
       .request(app)
-      .get(`${tripUrl}/?origin=abia`)
+      .get(`${tripUrl}?origin=abia`)
       .set('token', Token)
       .end((err, res) => {
         const { body } = res;
@@ -382,7 +382,7 @@ describe(`GET ${tripUrl}`, () => {
   it('should return 404 if wrong destination', (done) => {
     chai
       .request(app)
-      .get(`${tripUrl}/?destination=ilupej`)
+      .get(`${tripUrl}?destination=ilupej`)
       .set('token', Token)
       .end((err, res) => {
         const { body } = res;
