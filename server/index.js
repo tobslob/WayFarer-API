@@ -2,9 +2,11 @@ import http from 'http';
 import morgan from 'morgan';
 import express from 'express';
 import bodyparser from 'body-parser';
+import swaggerUI from 'swagger-ui-express';
 import user from './routes/api/user';
 import trip from './routes/api/trip';
 import bookings from './routes/api/bookings';
+import docs from '../swagger.json';
 
 const app = express();
 
@@ -28,6 +30,9 @@ app.get('/', (req, res) => {
     },
   );
 });
+
+// Render quick credit documentation
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(docs));
 
 // handle all error
 app.use((err, req, res, next) => {

@@ -281,7 +281,6 @@ describe(`PATCH ${bookingsUrl}`, () => {
       .send({ trip_id: `${Trip_id}`, seat_number: 87 })
       .end((err, res) => {
         const { body } = res;
-        console.log(err);
         expect(res.status).to.equal(400);
         expect(res.status).to.be.a('number');
         expect(body).to.be.an('object');
