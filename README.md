@@ -1,6 +1,6 @@
 # Way Farer
 
-[![Build Status](https://www.travis-ci.org/tobslob/WayFarer-API.svg?branch=develop)](https://www.travis-ci.org/tobslob/WayFarer-API.svg?branch=develop) 
+[![Build Status](https://www.travis-ci.org/tobslob/WayFarer-API.svg?branch=develop)](https://www.travis-ci.org/tobslob/WayFarer-API.svg?branch=develop)
 [![Coverage Status](https://coveralls.io/repos/github/tobslob/WayFarer-API/badge.svg?branch=develop)](https://coveralls.io/github/tobslob/WayFarer-API?branch=develop)
 [![Maintainability](https://api.codeclimate.com/v1/badges/26039ad82deae47de2e9/maintainability)](https://codeclimate.com/github/tobslob/WayFarer-API/maintainability)
 
@@ -13,15 +13,15 @@ WayFarer is a public bus transportation booking server
 - Admin can **create a trip**
 - Admin can **cancel a trip**
 - Both Admin and Users can **see all trips**
-- Users *book a seat on a trip**
-- An Admin **see all bookings** while user can **see all of his/her bookings**
-- Users **delete their booking**
+- Users can **book a seat on a trip**
+- An Admin can **see all bookings** while user can **see all of his/her bookings**
+- Users can **delete their booking**
 
 ## Optional Features
 
-- Users **get a list of filtered trips based on origin**
-- Users **get a list of filtered trips based on destination**
-- Users **change seats after booking**
+- Users can **get a list of filtered trips based on origin**
+- Users can **get a list of filtered trips based on destination**
+- Users can **change seats after booking**
 
 ## Technologies
 
@@ -81,11 +81,9 @@ npm test
 
 `- PATCH /api/v1/bookings/<:booking_id> Change seats after booking`
 
-
 ## Pivotal Tracker stories
 
 [https://www.pivotaltracker.com/n/projects/2358316](https://www.pivotaltracker.com/n/projects/2358316)
-
 
 ## API
 
