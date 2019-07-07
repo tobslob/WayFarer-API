@@ -17,6 +17,7 @@ class Trip {
     // check for admin user
     if (!req.user.is_admin) {
       return res.status(403).json({
+        status: 'error',
         error: 'Unauthorized!, Admin only route',
       });
     }
@@ -66,6 +67,7 @@ class Trip {
     // check for admin user
     if (!req.user.is_admin) {
       return res.status(403).json({
+        status: 'error',
         error: 'Unauthorized!, Admin only route',
       });
     }

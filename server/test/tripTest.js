@@ -22,6 +22,7 @@ const { expect } = chai;
 chai.use(chaiHttp);
 
 let Token;
+let Token1;
 let Trip_id;
 const tripUrl = '/api/v1/trips';
 const signinUrl = '/api/v1/auth/signin';
@@ -40,6 +41,19 @@ describe(`POST ${tripUrl}`, () => {
         done();
       });
   });
+
+  it('should successfully login user', (done) => {
+    chai
+      .request(app)
+      .post(signinUrl)
+      .send({ email: 'jamesdoe@gmail.com', password: 'jamesdoe' })
+      .end((err, res) => {
+        const { body } = res;
+        Token1 = body.token;
+        done();
+      });
+  });
+
   it('should create a trip successful', (done) => {
     chai
       .request(app)
@@ -60,6 +74,43 @@ describe(`POST ${tripUrl}`, () => {
         done();
       });
   });
+
+  it('should return 403 if not admin', (done) => {
+    chai
+      .request(app)
+      .post(tripUrl)
+      .set('token', Token1)
+      .send(correctTripDetails)
+      .end((err, res) => {
+        const { body } = res;
+        expect(res.status).to.equal(403);
+        expect(res.status).to.be.a('number');
+        expect(body).to.be.an('object');
+        expect(body).to.be.have.property('status');
+        expect(body).to.be.have.property('error');
+        expect(body.error).to.be.equal('Unauthorized!, Admin only route');
+        done();
+      });
+  });
+
+  it('should return 403 if not admin', (done) => {
+    chai
+      .request(app)
+      .post(busUrl)
+      .set('token', Token1)
+      .send(correctBusDetails)
+      .end((err, res) => {
+        const { body } = res;
+        expect(res.status).to.equal(403);
+        expect(res.status).to.be.a('number');
+        expect(body).to.be.an('object');
+        expect(body).to.be.have.property('status');
+        expect(body).to.be.have.property('error');
+        expect(body.error).to.be.equal('Unauthorized!, Admin only route');
+        done();
+      });
+  });
+
 
   it('should return 409 if bus has been schedule for a trip', (done) => {
     chai
