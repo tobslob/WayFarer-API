@@ -3,7 +3,7 @@
   "info": {
     "version": "1.0",
     "title": "Way Farer",
-    "description": "TODO: Add Description",
+    "description": "WayFarer is a public bus transportation booking server",
     "contact": {}
   },
   "host": "way-farer-app.herokuapp.com",

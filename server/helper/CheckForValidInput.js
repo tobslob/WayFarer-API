@@ -78,7 +78,7 @@ class CheckForValidInput {
     const schema = Joi.object().keys({
       number_plate: Joi.string().trim().strict().regex(/B[a-zA-Z]{3}-\d{3}/)
         .required()
-        .error(() => 'Number plate is required and must be correct plate-number format'),
+        .error(() => "Number plate is required with this format 'BLAG-017' and must start with B"),
       manufacturer: Joi.string().trim().strict().regex(/^[a-zA-Z]+$/)
         .min(3)
         .required()
@@ -90,8 +90,7 @@ class CheckForValidInput {
       capacity: Joi.number().integer().min(4)
         .required()
         .error(() => 'Bus capacity is required'),
-      model: Joi.string().trim().strict().regex(/^[a-zA-Z]+$/)
-        .min(3)
+      model: Joi.string().trim().strict()
         .required()
         .error(() => 'bus model is required'),
     });
