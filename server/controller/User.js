@@ -32,6 +32,7 @@ class User {
     ];
     try {
       const { rows } = await db.query(createUserQuery, values);
+      const user = rows[0];
       const token = Authentication.generateToken(
         rows[0].user_id,
         rows[0].email,
@@ -39,9 +40,11 @@ class User {
       );
 
       return res.status(201).json({
-        token,
         status: 'success',
-        data: rows[0],
+        data: {
+          token,
+          ...user,
+        },
       });
     } catch (errors) {
       if (errors.routine === '_bt_check_unique') {
@@ -107,8 +110,8 @@ class User {
       // return success message
       return res.status(200).json({
         status: 'success',
-        token,
         data: {
+          token,
           user_id,
           email,
           first_name,

@@ -25,7 +25,7 @@ describe(`POST ${bookingsUrl}`, () => {
       .send({ email: 'kzmobileapp@gmail.com', password: 'Kazeem27' })
       .end((err, res) => {
         const { body } = res;
-        Token = body.token;
+        Token = body.data.token;
         done();
       });
   });
@@ -37,7 +37,7 @@ describe(`POST ${bookingsUrl}`, () => {
       .send({ email: 'jamesdoe@gmail.com', password: 'jamesdoe' })
       .end((err, res) => {
         const { body } = res;
-        Token1 = body.token;
+        Token1 = body.data.token;
         done();
       });
   });
@@ -167,7 +167,7 @@ describe(`GET ${bookingsUrl}`, () => {
       .send({ email: 'kzmobileapp@gmail.com', password: 'Kazeem27' })
       .end((err, res) => {
         const { body } = res;
-        Token = body.token;
+        Token = body.data.token;
         done();
       });
   });
@@ -179,7 +179,7 @@ describe(`GET ${bookingsUrl}`, () => {
       .send({ email: 'jamesdoe@gmail.com', password: 'jamesdoe' })
       .end((err, res) => {
         const { body } = res;
-        Token1 = body.token;
+        Token1 = body.data.token;
         done();
       });
   });
@@ -223,7 +223,7 @@ describe(`PATCH ${bookingsUrl}`, () => {
       .send({ email: 'kzmobileapp@gmail.com', password: 'Kazeem27' })
       .end((err, res) => {
         const { body } = res;
-        Token = body.token;
+        Token = body.data.token;
         done();
       });
   });
@@ -235,7 +235,7 @@ describe(`PATCH ${bookingsUrl}`, () => {
       .send({ email: 'jamesdoe@gmail.com', password: 'jamesdoe' })
       .end((err, res) => {
         const { body } = res;
-        Token1 = body.token;
+        Token1 = body.data.token;
         done();
       });
   });
@@ -300,7 +300,7 @@ describe(`DELETE ${bookingsUrl}`, () => {
       .send({ email: 'kzmobileapp@gmail.com', password: 'Kazeem27' })
       .end((err, res) => {
         const { body } = res;
-        Token = body.token;
+        Token = body.data.token;
         done();
       });
   });
@@ -312,7 +312,7 @@ describe(`DELETE ${bookingsUrl}`, () => {
       .send({ email: 'jamesdoe@gmail.com', password: 'jamesdoe' })
       .end((err, res) => {
         const { body } = res;
-        Token1 = body.token;
+        Token1 = body.data.token;
         done();
       });
   });

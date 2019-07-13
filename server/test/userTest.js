@@ -31,7 +31,7 @@ describe(`POST ${signupUrl}`, () => {
         expect(res.status).to.equal(201);
         expect(res.status).to.be.a('number');
         expect(body).to.be.an('object');
-        expect(body).to.be.have.property('token');
+        expect(body.data).to.be.have.property('token');
         expect(body.data).to.be.have.property('first_name');
         expect(body.data).to.be.have.property('last_name');
         expect(body.data).to.be.have.property('address');
@@ -327,12 +327,12 @@ describe(`POST ${signinUrl}`, () => {
         expect(res.status).to.be.a('number');
         expect(body).to.be.an('object');
         expect(body).to.have.a.property('status');
-        expect(body).to.have.a.property('token');
+        expect(body.data).to.have.a.property('token');
         done();
       });
   });
 
-  it('should successfully login user', (done) => {
+  it('should not successfully login user', (done) => {
     chai
       .request(app)
       .post(signinUrl)
@@ -349,7 +349,7 @@ describe(`POST ${signinUrl}`, () => {
       });
   });
 
-  it('should successfully login user', (done) => {
+  it('should not successfully login user', (done) => {
     chai
       .request(app)
       .post(signinUrl)
