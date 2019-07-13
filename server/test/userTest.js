@@ -57,18 +57,18 @@ describe(`POST ${signupUrl}`, () => {
       });
   });
 
-  it('Should return 400 if Address is ommited', (done) => {
+  it('Should return 201 if Address is ommited', (done) => {
     chai
       .request(app)
       .post(signupUrl)
       .send(undefinedAddress)
       .end((err, res) => {
         const { body } = res;
-        expect(res.status).to.equal(400);
+        expect(res.status).to.equal(201);
         expect(res.status).to.be.a('number');
         expect(body).to.be.an('object');
-        expect(body).to.be.have.property('error');
-        expect(body.error).to.be.equal('Address field is required and should not be less than 25 characters');
+        expect(body).to.be.have.property('data');
+        expect(body.data).to.haveOwnProperty('token');
         done();
       });
   });
@@ -180,7 +180,6 @@ describe(`POST ${signupUrl}`, () => {
         expect(res.status).to.be.a('number');
         expect(body).to.be.an('object');
         expect(body).to.be.have.property('error');
-        expect(body.error).to.be.equal('Address field is required and should not be less than 25 characters');
         done();
       });
   });

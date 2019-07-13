@@ -85,7 +85,7 @@ const emptyEmail = {
 };
 
 const undefinedAddress = {
-  email: 'jamesdon@gmail.com',
+  email: faker.internet.email(),
   first_name: 'James',
   last_name: 'Done',
   password: 'jamesdoe',
@@ -94,7 +94,7 @@ const undefinedAddress = {
 const emptyAddress = {
   first_name: 'James',
   last_name: 'Done',
-  email: 'jamesdoe@gmail.com',
+  email: faker.internet.email(),
   password: 'jamesdoe',
   address: '',
 };
@@ -116,7 +116,7 @@ const invalidEmailLength = {
 };
 
 const invalidAddressLength = {
-  email: 'emekaofe7@gmail.com',
+  email: faker.internet.email(),
   first_name: 'Emeka',
   last_name: 'Ofe',
   password: 'maths102',
