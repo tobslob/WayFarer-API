@@ -37,7 +37,7 @@ describe(`POST ${tripUrl}`, () => {
       .send({ email: 'kzmobileapp@gmail.com', password: 'Kazeem27' })
       .end((err, res) => {
         const { body } = res;
-        Token = body.token;
+        Token = body.data.token;
         done();
       });
   });
@@ -49,7 +49,7 @@ describe(`POST ${tripUrl}`, () => {
       .send({ email: 'jamesdoe@gmail.com', password: 'jamesdoe' })
       .end((err, res) => {
         const { body } = res;
-        Token1 = body.token;
+        Token1 = body.data.token;
         done();
       });
   });
