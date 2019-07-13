@@ -21,7 +21,6 @@ class CheckForValidInput {
         .required()
         .error(() => 'Password field is required with mininum 6 characters'),
       address: Joi.string().trim().strict().min(25)
-        .required()
         .error(() => 'Address field is required and should not be less than 25 characters'),
     });
     return Joi.validate(user, schema);
@@ -49,15 +48,13 @@ class CheckForValidInput {
    */
   static createAtrip(trip) {
     const schema = Joi.object().keys({
-      bus_id: Joi.number().integer().min(1)
+      bus_id: Joi.number().integer()
         .required()
         .error(() => 'bus id is required and should be an integer number'),
-      origin: Joi.string().trim().strict().regex(/^[a-z]+$/)
-        .min(3)
+      origin: Joi.string().trim().strict().regex(/^[a-zA-Z]+$/)
         .required()
         .error(() => 'origin is required and should not be less than 3 characters and must be lowercase'),
-      destination: Joi.string().trim().strict().regex(/^[a-z]+$/)
-        .min(3)
+      destination: Joi.string().trim().strict().regex(/^[a-zA-Z]+$/)
         .required()
         .error(() => 'destination is required and should not be less than 3 characters and must be lowercase'),
       trip_date: Joi.date().required()
@@ -76,7 +73,7 @@ class CheckForValidInput {
    */
   static addBusForTrip(bus) {
     const schema = Joi.object().keys({
-      number_plate: Joi.string().trim().strict().regex(/B[a-zA-Z]{3}-\d{3}/)
+      number_plate: Joi.string().trim().strict()
         .required()
         .error(() => "Number plate is required with this format 'BLAG-017' and must start with B"),
       manufacturer: Joi.string().trim().strict().regex(/^[a-zA-Z]+$/)
@@ -87,7 +84,7 @@ class CheckForValidInput {
         .min(4)
         .required()
         .error(() => 'Correct year format is required'),
-      capacity: Joi.number().integer().min(4)
+      capacity: Joi.number().integer()
         .required()
         .error(() => 'Bus capacity is required'),
       model: Joi.string().trim().strict()
@@ -146,9 +143,9 @@ class CheckForValidInput {
    */
   static checkTripParams(filterTrip) {
     const schema = Joi.object().keys({
-      destination: Joi.string().trim().strict().lowercase()
+      destination: Joi.string().trim().strict()
         .error(() => 'Enter a valid lowercase string value'),
-      origin: Joi.string().trim().strict().lowercase()
+      origin: Joi.string().trim().strict()
         .error(() => 'Enter a valid lowercase string value'),
     });
     return Joi.validate(filterTrip, schema);

@@ -395,7 +395,7 @@ describe(`GET ${tripUrl}`, () => {
       .set('token', Token)
       .end((err, res) => {
         const { body } = res;
-        expect(res.status).to.equal(400);
+        expect(res.status).to.equal(404);
         expect(res.status).to.be.a('number');
         expect(body).to.be.an('object');
         expect(body).to.have.property('error');
@@ -409,7 +409,7 @@ describe(`GET ${tripUrl}`, () => {
       .set('token', Token)
       .end((err, res) => {
         const { body } = res;
-        expect(res.status).to.equal(400);
+        expect(res.status).to.equal(404);
         expect(res.status).to.be.a('number');
         expect(body).to.be.an('object');
         expect(body).to.have.property('error');
