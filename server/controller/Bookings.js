@@ -13,8 +13,10 @@ class Bookings {
    * @param {*} res
    */
   static async bookAtrip(req, res) {
+    console.log(req.body);
     const { error } = CheckForValidInput.checkBooking(req.body);
     if (error) {
+      console.log(error);
       return res.status(400).json({
         status: 'error',
         error: error.details[0].message,
@@ -33,6 +35,7 @@ class Bookings {
       }
 
       if (rows[0].status === 'canceled') {
+        console.log('trip canceled');
         return res.status(400).json({
           status: 'error',
           error: 'This trip has been canceled, you can not book it',
@@ -42,6 +45,7 @@ class Bookings {
       const userBookings = await db.query(checkIfBookingExistQuery,
         [rows[0].trip_id, req.user.user_id]);
       if (userBookings.rows[0]) {
+        console.log('You already booked a seat for the trip');
         return res.status(400).json({
           status: 'error',
           error: 'You already booked a seat for the trip',
@@ -50,6 +54,7 @@ class Bookings {
 
       const bookings = await db.query(checkBookingsQuery, [rows[0].trip_id, req.body.seat_number]);
       if (bookings.rows[0]) {
+        console.log('Seat has been occuppied, choose another seat');
         return res.status(400).json({
           status: 'error',
           error: 'Seat has been occuppied, choose another seat',
@@ -58,6 +63,7 @@ class Bookings {
 
       const bus = await db.query(findAbusQuery, [rows[0].bus_id]);
       if (bus.rows[0].capacity < req.body.seat_number) {
+        console.log('seat not available, choose a lower seat number');
         return res.status(400).json({
           status: 'error',
           error: 'seat not available, choose a lower seat number',
@@ -82,6 +88,7 @@ class Bookings {
         data: booking.rows[0],
       });
     } catch (errors) {
+      console.log(errors);
       return res.status(400).json({
         status: 'error',
         error: 'Something went wrong, try again',
@@ -123,6 +130,7 @@ class Bookings {
         data: rows,
       });
     } catch (error) {
+      console.log(error);
       return res.status(400).json({
         error: 'Something went wrong, try again',
       });
@@ -135,8 +143,10 @@ class Bookings {
  * @param {*} res
  */
   static async deleteBooking(req, res) {
+    console.log(req.params);
     const { error } = CheckForValidInput.checkBookParams(req.params);
     if (error) {
+      console.log(error);
       return res.status(400).json({
         status: 'error',
         error: error.details[0].message,
@@ -158,6 +168,7 @@ class Bookings {
         },
       });
     } catch (errors) {
+      console.log(errors);
       return res.status(400).json({
         status: 'error',
         error: 'Something went wrong, try again',
@@ -172,6 +183,7 @@ class Bookings {
        * @param {*} res
        */
   static async changeSeat(req, res) {
+    console.log(req.body);
     try {
       const values = [
         req.body.seat_number,
@@ -182,6 +194,7 @@ class Bookings {
       const bookings = await db.query(checkBookingsQuery,
         [req.body.trip_id, req.body.seat_number]);
       if (bookings.rows[0]) {
+        console.log('Seat has been occuppied, choose another seat');
         return res.status(400).json({
           status: 'error',
           error: 'Seat has been occuppied, choose another seat',
@@ -198,6 +211,7 @@ class Bookings {
 
       const bus = await db.query(findAbusQuery, [trip.rows[0].bus_id]);
       if (bus.rows[0].capacity < req.body.seat_number) {
+        console.log('seat not available, choose a lower seat number');
         return res.status(400).json({
           status: 'error',
           error: 'seat not available, choose a lower seat number',
@@ -216,6 +230,7 @@ class Bookings {
         data: userBooking.rows[0],
       });
     } catch (err) {
+      console.log(err);
       return res.status(400).json({
         status: 'error',
         error: 'Something went wrong, try again',

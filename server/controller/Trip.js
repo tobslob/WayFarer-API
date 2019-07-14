@@ -14,6 +14,7 @@ class Trip {
    * @param {*} res
    */
   static async addBusForTrip(req, res) {
+    console.log(req.body);
     // check for admin user
     if (!req.user.is_admin) {
       return res.status(403).json({
@@ -24,6 +25,7 @@ class Trip {
 
     const { error } = CheckForValidInput.addBusForTrip(req.body);
     if (error) {
+      console.log(error);
       return res.status(400).json({
         status: 'error',
         error: error.details[0].message,
@@ -45,6 +47,7 @@ class Trip {
         data: rows[0],
       });
     } catch (errors) {
+      console.log(errors);
       if (errors.routine === '_bt_check_unique') {
         return res.status(409).json({
           status: 'error',
@@ -64,6 +67,7 @@ class Trip {
    * @param {*} res
    */
   static async createAtrip(req, res) {
+    console.log(req.body);
     // check for admin user
     if (!req.user.is_admin) {
       return res.status(403).json({
@@ -74,6 +78,7 @@ class Trip {
 
     const { error } = CheckForValidInput.createAtrip(req.body);
     if (error) {
+      console.log(error);
       return res.status(400).json({
         status: 'error',
         error: error.details[0].message,
@@ -104,6 +109,7 @@ class Trip {
         data: rows[0],
       });
     } catch (errors) {
+      console.log(errors);
       if (errors.routine === 'ri_ReportViolation') {
         return res.status(400).json({
           status: 'error',
@@ -136,6 +142,7 @@ class Trip {
         data: rows,
       });
     } catch (error) {
+      console.log(error);
       return res.status(400).json({
         error: 'Something went wrong, try again',
       });
@@ -148,6 +155,7 @@ class Trip {
        * @param {*} res
        */
   static async cancelATrip(req, res) {
+    console.log(req.params);
     // check for admin user
     if (!req.user.is_admin) {
       return res.status(403).json({
@@ -156,6 +164,7 @@ class Trip {
     }
     const { error } = CheckForValidInput.checkParams(req.params);
     if (error) {
+      console.log(error);
       return res.status(400).json({
         status: 'error',
         error: error.details[0].message,
@@ -180,6 +189,7 @@ class Trip {
         data: rows[0],
       });
     } catch (err) {
+      console.log(err);
       return res.status(400).json({
         status: 'error',
         error: 'Something went wrong, try again',
@@ -194,8 +204,10 @@ class Trip {
  *@param {res} object
  */
   static async getTripByDestOrOrigin(req, res, next) {
+    console.log(req.query);
     const { error } = CheckForValidInput.checkTripParams(req.query);
     if (error) {
+      console.log(error);
       return res.status(400).json({
         status: 'error',
         error: error.details[0].message,
@@ -216,6 +228,7 @@ class Trip {
           data: rows,
         });
       } catch (errors) {
+        console.log(errors);
         return res.status(400).json({
           status: 'error',
           error: 'Something went wrong, try again',
