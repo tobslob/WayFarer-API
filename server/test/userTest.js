@@ -4,8 +4,8 @@ import app from '../index';
 import {
   correctUser, undefinedFirstName, undefinedAddress, invalidFirstNameLength,
   invalidFirstNameCharacter, undefinedLastName, invalidLastNameLength,
-  invalidLastNameCharacter, undefinedEmail, invalidAddressLength, invalidEmailCharacter,
-  existingEmail, undefinedPassword, invalidPasswordLength, emptyAddress, emptyEmail,
+  invalidLastNameCharacter, undefinedEmail, invalidEmailCharacter,
+  existingEmail, undefinedPassword, invalidPasswordLength, emptyEmail,
   emptyFirstName, emptyLastName, correctLogin, undefinedEmailLogin, undefinedPasswordLogin,
   nonExistingEmail, emptyPasswordField, emptyEmailField, correctEmailIncorrectPassword,
 } from './mockData/mockUser';
@@ -79,11 +79,10 @@ describe(`POST ${signupUrl}`, () => {
       .send(invalidFirstNameLength)
       .end((err, res) => {
         const { body } = res;
-        expect(res.status).to.equal(409);
+        expect(res.status).to.equal(400);
         expect(res.status).to.be.a('number');
         expect(body).to.be.an('object');
         expect(body).to.be.have.property('error');
-        expect(body.error).to.be.equal('User already exist');
         done();
       });
   });
@@ -168,20 +167,6 @@ describe(`POST ${signupUrl}`, () => {
       });
   });
 
-  it('Should return 201 if no address is found', (done) => {
-    chai
-      .request(app)
-      .post(signupUrl)
-      .send(invalidAddressLength)
-      .end((err, res) => {
-        const { body } = res;
-        expect(res.status).to.equal(201);
-        expect(res.status).to.be.a('number');
-        expect(body).to.be.an('object');
-        done();
-      });
-  });
-
   it('Should return 400 if Invalid Email Address is entered', (done) => {
     chai
       .request(app)
@@ -242,22 +227,6 @@ describe(`POST ${signupUrl}`, () => {
         expect(body).to.be.an('object');
         expect(body).to.be.have.property('error');
         expect(body.error).to.be.equal('Password field is required with mininum 6 characters');
-        done();
-      });
-  });
-
-  it('Should return 400 if address is omitted', (done) => {
-    chai
-      .request(app)
-      .post(signupUrl)
-      .send(emptyAddress)
-      .end((err, res) => {
-        const { body } = res;
-        expect(res.status).to.equal(400);
-        expect(res.status).to.be.a('number');
-        expect(body).to.be.an('object');
-        expect(body).to.be.have.property('error');
-        expect(body.error).to.be.equal('Address field is required and should not be less than 25 characters');
         done();
       });
   });
