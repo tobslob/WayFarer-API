@@ -147,7 +147,7 @@ describe(`POST ${tripUrl}`, () => {
       });
   });
 
-  it('Should return 400 if bus id is incorrect', (done) => {
+  it('Should return 409 if bus id is incorrect', (done) => {
     chai
       .request(app)
       .post(tripUrl)
@@ -155,11 +155,9 @@ describe(`POST ${tripUrl}`, () => {
       .send(incorrectTripBusId)
       .end((err, res) => {
         const { body } = res;
-        expect(res.status).to.equal(400);
+        expect(res.status).to.equal(409);
         expect(res.status).to.be.a('number');
         expect(body).to.be.an('object');
-        expect(body).to.be.have.property('error');
-        expect(body.error).to.be.equal('No bus with such ID found');
         done();
       });
   });
