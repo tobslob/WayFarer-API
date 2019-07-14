@@ -51,18 +51,17 @@ class CheckForValidInput {
    */
   static createAtrip(trip) {
     const schema = Joi.object().keys({
-      bus_id: Joi.number().integer().required()
+      bus_id: Joi.number().integer()
         .error(() => 'bus id is required and should be an integer number'),
-      origin: Joi.string().trim().strict()
+      origin: Joi.string().trim()
         .required()
         .error(() => 'origin is required and should not be less than 3 characters and must be lowercase'),
-      destination: Joi.string().trim().strict()
+      destination: Joi.string().trim()
         .required()
         .error(() => 'destination is required and should not be less than 3 characters and must be lowercase'),
-      trip_date: Joi.string().required()
+      trip_date: Joi.string()
         .error(() => 'trip date is required'),
       fare: Joi.number()
-        .required()
         .error(() => 'fare is required and can not be less than $1'),
     });
     return Joi.validate(trip, schema, validationOptions);
@@ -82,8 +81,7 @@ class CheckForValidInput {
         .min(3)
         .required()
         .error(() => 'bus manufacturer is required'),
-      year: Joi.string().trim().strict().regex(/^[0-9]*$/)
-        .min(4)
+      year: Joi.string().trim().strict()
         .required()
         .error(() => 'Correct year format is required'),
       capacity: Joi.number().integer()
