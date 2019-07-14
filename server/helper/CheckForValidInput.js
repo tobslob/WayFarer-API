@@ -130,7 +130,6 @@ class CheckForValidInput {
         .required()
         .error(() => 'Trip ID must be an Integer number!'),
       seat_number: Joi.number().integer()
-        .required()
         .error(() => 'Seat number must be an Integer number!'),
     });
     return Joi.validate(trip_id, schema, validationOptions);

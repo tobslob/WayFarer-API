@@ -6,6 +6,8 @@ import {
   deleteBookingQuery, updateBookingQuery,
 } from '../model/query/BookingsQuery';
 
+let seat_number;
+
 class Bookings {
   /**
    * Users can book a seat for a trip
@@ -13,6 +15,12 @@ class Bookings {
    * @param {*} res
    */
   static async bookAtrip(req, res) {
+    if (!req.body.seat_number) {
+      seat_number = Math.floor(Math.random() * 20);
+    } else {
+      // eslint-disable-next-line prefer-destructuring
+      seat_number = req.body.seat_number;
+    }
     const { error } = CheckForValidInput.checkBooking(req.body);
     if (error) {
       return res.status(400).json({
@@ -48,7 +56,7 @@ class Bookings {
         });
       }
 
-      const bookings = await db.query(checkBookingsQuery, [rows[0].trip_id, req.body.seat_number]);
+      const bookings = await db.query(checkBookingsQuery, [rows[0].trip_id, seat_number]);
       if (bookings.rows[0]) {
         return res.status(400).json({
           status: 'error',
@@ -56,13 +64,13 @@ class Bookings {
         });
       }
 
-      const bus = await db.query(findAbusQuery, [rows[0].bus_id]);
-      if (bus.rows[0].capacity < req.body.seat_number) {
-        return res.status(400).json({
-          status: 'error',
-          error: 'seat not available, choose a lower seat number',
-        });
-      }
+      // const bus = await db.query(findAbusQuery, [rows[0].bus_id]);
+      // if (bus.rows[0].capacity < seat_number) {
+      //   return res.status(400).json({
+      //     status: 'error',
+      //     error: 'seat not available, choose a lower seat number',
+      //   });
+      // }
 
       const values = [
         req.user.user_id,
@@ -70,16 +78,33 @@ class Bookings {
         new Date(),
         rows[0].bus_id,
         rows[0].trip_date,
-        req.body.seat_number,
+        seat_number,
         user.first_name,
         user.last_name,
         user.email,
       ];
 
       const booking = await db.query(bookTripQuery, values);
+      const {
+        booking_id, user_id, trip_id, created_on, bus_id,
+        trip_date, first_name, last_name, email,
+      } = booking.rows[0];
+
+      const id = booking_id;
       return res.status(201).json({
         status: 'success',
-        data: booking.rows[0],
+        data: {
+          id,
+          user_id,
+          trip_id,
+          created_on,
+          bus_id,
+          trip_date,
+          seat_number,
+          first_name,
+          last_name,
+          email,
+        },
       });
     } catch (errors) {
       return res.status(400).json({
