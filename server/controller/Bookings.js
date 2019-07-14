@@ -13,6 +13,7 @@ class Bookings {
    * @param {*} res
    */
   static async bookAtrip(req, res) {
+    console.log(req.body);
     const { error } = CheckForValidInput.checkBooking(req.body);
     if (error) {
       console.log(error);
@@ -142,6 +143,7 @@ class Bookings {
  * @param {*} res
  */
   static async deleteBooking(req, res) {
+    console.log(req.params);
     const { error } = CheckForValidInput.checkBookParams(req.params);
     if (error) {
       console.log(error);
@@ -181,6 +183,7 @@ class Bookings {
        * @param {*} res
        */
   static async changeSeat(req, res) {
+    console.log(req.body);
     try {
       const values = [
         req.body.seat_number,

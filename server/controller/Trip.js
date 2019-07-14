@@ -14,6 +14,7 @@ class Trip {
    * @param {*} res
    */
   static async addBusForTrip(req, res) {
+    console.log(req.body);
     // check for admin user
     if (!req.user.is_admin) {
       return res.status(403).json({
@@ -66,6 +67,7 @@ class Trip {
    * @param {*} res
    */
   static async createAtrip(req, res) {
+    console.log(req.body);
     // check for admin user
     if (!req.user.is_admin) {
       return res.status(403).json({
@@ -153,6 +155,7 @@ class Trip {
        * @param {*} res
        */
   static async cancelATrip(req, res) {
+    console.log(req.params);
     // check for admin user
     if (!req.user.is_admin) {
       return res.status(403).json({
@@ -201,6 +204,7 @@ class Trip {
  *@param {res} object
  */
   static async getTripByDestOrOrigin(req, res, next) {
+    console.log(req.query);
     const { error } = CheckForValidInput.checkTripParams(req.query);
     if (error) {
       console.log(error);
