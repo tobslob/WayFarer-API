@@ -58,7 +58,7 @@ const undefinedTripDate = {
 };
 
 const correctBusDetails = {
-  number_plate: 'BILY-2348',
+  number_plate: 'lag-103-RT',
   manufacturer: 'Toyota',
   model: 'camry',
   year: '2015',
@@ -73,28 +73,28 @@ const undefinedNumberPlate = {
 };
 
 const undefinedBusManufacturer = {
-  number_plate: 'BILR-2348',
+  number_plate: 'OSU-645-UT',
   model: 'Big Daddy',
   year: '2015',
   capacity: 18,
 };
 
 const undefinedBusModel = {
-  number_plate: 'BILR-2348',
+  number_plate: 'ABJ-756-HD',
   manufacturer: 'Toyota',
   year: '2015',
   capacity: 18,
 };
 
 const undefinedBusYear = {
-  number_plate: 'BILR-2348',
+  number_plate: 'KST-649-FG',
   manufacturer: 'Toyota',
   model: 'Big Daddy',
   capacity: 18,
 };
 
 const undefinedBusCapacity = {
-  number_plate: 'BILR-2348',
+  number_plate: 'OGU-433-ID',
   manufacturer: 'Toyota',
   model: 'Big Daddy',
   year: '2015',

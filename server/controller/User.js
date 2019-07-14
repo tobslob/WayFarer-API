@@ -24,7 +24,6 @@ class User {
       req.body.email,
       req.body.first_name,
       req.body.last_name,
-      req.body.address,
       hashpassword,
       false,
       new Date(),

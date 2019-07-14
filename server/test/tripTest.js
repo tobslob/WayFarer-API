@@ -267,7 +267,7 @@ describe(`POST ${busUrl}`, () => {
         expect(res.status).to.be.a('number');
         expect(body).to.be.an('object');
         expect(body).to.be.have.property('error');
-        expect(body.error).to.be.equal("Number plate is required with this format 'BLAG-017' and must start with B");
+        expect(body.error).to.be.equal('Number plate is required with this Nig format xxx-xxx-xxx');
         done();
       });
   });

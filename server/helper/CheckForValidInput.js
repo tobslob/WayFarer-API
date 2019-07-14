@@ -1,5 +1,10 @@
 import Joi from 'joi';
 
+const validationOptions = {
+  allowUnknown: true, // allow unknown keys that will be ignored
+  stripUnknown: true, // remove unknown keys from the validated data
+};
+
 class CheckForValidInput {
   /**
    * funtion to check if user input valid details during registration
@@ -7,21 +12,22 @@ class CheckForValidInput {
    */
   static createUser(user) {
     const schema = Joi.object().keys({
-      email: Joi.string().email().trim().required()
+      email: Joi.string().trim().strict().email()
+        .required()
         .error(() => 'Valid email field is required'),
       first_name: Joi.string().trim().strict().regex(/^[a-zA-Z]+$/)
+        .min(3)
         .required()
         .error(() => 'First name field is required with min length of 3 and must be alphabet'),
       last_name: Joi.string().trim().strict().regex(/^[a-zA-Z]+$/)
+        .min(3)
         .required()
         .error(() => 'last name field is required with min length of 3 and must be alphabet'),
-      password: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/).trim().strict()
+      password: Joi.string().trim().strict().regex(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/)
         .required()
         .error(() => 'Password field is required with mininum 6 characters'),
-      address: Joi.string().trim().strict()
-        .error(() => 'Address field is required and should not be less than 25 characters'),
     });
-    return Joi.validate(user, schema);
+    return Joi.validate(user, schema, validationOptions);
   }
 
   /**  funtion to validate login inputs
@@ -29,14 +35,13 @@ class CheckForValidInput {
      */
   static loginAuser(details) {
     const schema = Joi.object().keys({
-      email: Joi.string().email().trim()
+      email: Joi.string().trim().strict().email()
         .required()
         .error(() => 'Email is required'),
-      password: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/).trim().strict()
-        .required()
+      password: Joi.string().trim().strict().required()
         .error(() => 'you must provide a correct password'),
     });
-    return Joi.validate(details, schema);
+    return Joi.validate(details, schema, validationOptions);
   }
 
 
@@ -63,7 +68,7 @@ class CheckForValidInput {
       token: Joi.string()
         .trim().strict(),
     });
-    return Joi.validate(trip, schema);
+    return Joi.validate(trip, schema, validationOptions);
   }
 
 
@@ -73,9 +78,9 @@ class CheckForValidInput {
    */
   static addBusForTrip(bus) {
     const schema = Joi.object().keys({
-      number_plate: Joi.string().trim().strict()
+      number_plate: Joi.string().trim().strict().regex(/^[A-Za-z]{3}-[0-9]{3}-[A-Za-z]{2}$/)
         .required()
-        .error(() => "Number plate is required with this format 'BLAG-017' and must start with B"),
+        .error(() => 'Number plate is required with this Nig format xxx-xxx-xxx'),
       manufacturer: Joi.string().trim().strict().regex(/^[a-zA-Z]+$/)
         .min(3)
         .required()
@@ -93,7 +98,7 @@ class CheckForValidInput {
       token: Joi.string()
         .trim().strict(),
     });
-    return Joi.validate(bus, schema);
+    return Joi.validate(bus, schema, validationOptions);
   }
 
   /**
@@ -108,7 +113,7 @@ class CheckForValidInput {
       token: Joi.string()
         .trim().strict(),
     });
-    return Joi.validate(trip_id, schema);
+    return Joi.validate(trip_id, schema, validationOptions);
   }
 
   /**
@@ -123,7 +128,7 @@ class CheckForValidInput {
       token: Joi.string()
         .trim().strict(),
     });
-    return Joi.validate(booking_id, schema);
+    return Joi.validate(booking_id, schema, validationOptions);
   }
 
   /**
@@ -141,7 +146,7 @@ class CheckForValidInput {
       token: Joi.string()
         .trim().strict(),
     });
-    return Joi.validate(trip_id, schema);
+    return Joi.validate(trip_id, schema, validationOptions);
   }
 
   /**
@@ -151,14 +156,14 @@ class CheckForValidInput {
    */
   static checkTripParams(filterTrip) {
     const schema = Joi.object().keys({
-      destination: Joi.string().trim().strict()
+      destination: Joi.string().trim().strict().regex(/^[a-zA-Z]+$/)
         .error(() => 'Enter a valid lowercase string value'),
-      origin: Joi.string().trim().strict()
+      origin: Joi.string().trim().strict().regex(/^[a-zA-Z]+$/)
         .error(() => 'Enter a valid lowercase string value'),
       token: Joi.string()
         .trim().strict(),
     });
-    return Joi.validate(filterTrip, schema);
+    return Joi.validate(filterTrip, schema, validationOptions);
   }
 }
 

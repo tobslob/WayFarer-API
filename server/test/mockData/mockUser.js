@@ -4,14 +4,14 @@ const correctUser = {
   last_name: 'Done',
   first_name: 'James',
   email: faker.internet.email(),
-  password: 'jamesdoe',
+  password: 'jamesdoe@123',
   address: '75 Bode-Thomas, Surulere Lagos',
 };
 
 const undefinedFirstName = {
   last_name: 'Done',
   email: 'jamedoe@gmail.com',
-  password: 'jamesdoe',
+  password: 'jamesdoe6@123',
   address: '75 Bode-Thomas, Surulere Lagos',
 };
 
@@ -19,7 +19,7 @@ const emptyFirstName = {
   first_name: '',
   last_name: 'Done',
   email: 'jamsdoe@gmail.com',
-  password: 'jamesdoe',
+  password: 'jamesdoe@123',
   address: '75 Bode-Thomas, Surulere Lagos',
 };
 
@@ -27,7 +27,7 @@ const invalidFirstNameLength = {
   first_name: 'J',
   last_name: 'Done',
   email: 'jamesdoe@gmail.com',
-  password: 'jamesdoe',
+  password: 'jamesdoe@123',
   address: '75 Bode-Thomas, Surulere Lagos',
 };
 
@@ -35,21 +35,21 @@ const invalidFirstNameCharacter = {
   first_name: 'Joh$n',
   last_name: 'Done',
   email: 'jamesdoe@gmail.com',
-  password: 'jamesdoe',
+  password: 'jamesdoe@123',
   address: '75 Bode-Thomas, Surulere Lagos',
 };
 
 const undefinedLastName = {
   first_name: 'James',
   email: 'jamesdoe@gmail.com',
-  password: 'jamesdoe',
+  password: 'jamesdoe@123',
 };
 
 const emptyLastName = {
   first_name: 'James',
   lastName: '',
   email: 'jamesdoe@gmail.com',
-  password: 'jamesdoe',
+  password: 'jamesdoe@123',
   address: '75 Bode-Thomas, Surulere Lagos',
 };
 
@@ -57,7 +57,7 @@ const invalidLastNameLength = {
   first_name: 'James',
   last_name: '',
   email: 'jamesdoe@gmail.com',
-  password: 'jamesdoe',
+  password: 'jamesdoe@123',
   address: '75 Bode-Thomas, Surulere Lagos',
 };
 
@@ -65,14 +65,14 @@ const invalidLastNameCharacter = {
   first_name: 'James',
   last_name: 'Do$e',
   email: 'jamesdoe@gmail.com',
-  password: 'jamesdoe',
+  password: 'jamesdoe@123',
   address: '75 Bode-Thomas, Surulere Lagos',
 };
 
 const undefinedEmail = {
   first_name: 'James',
   last_name: 'Done',
-  password: 'jamesdoe',
+  password: 'jamesdoe@123',
   address: '75 Bode-Thomas, Surulere Lagos',
 };
 
@@ -80,7 +80,7 @@ const emptyEmail = {
   first_name: 'James',
   last_name: 'Done',
   email: '',
-  password: 'jamesdoe',
+  password: 'jamesdoe@123',
   address: '75 Bode-Thomas, Surulere Lagos',
 };
 
@@ -88,14 +88,14 @@ const undefinedAddress = {
   email: faker.internet.email(),
   first_name: 'James',
   last_name: 'Done',
-  password: 'jamesdoe',
+  password: 'jamesdoe@123',
 };
 
 const emptyAddress = {
   first_name: 'James',
   last_name: 'Done',
   email: faker.internet.email(),
-  password: 'jamesdoe',
+  password: 'jamesdoe@123',
   address: '',
 };
 
@@ -111,22 +111,15 @@ const invalidEmailLength = {
   first_name: 'James',
   last_name: 'Done',
   email: 'd@g.com',
-  password: 'jamesdoe',
+  password: 'jamesdoe@123',
   address: '75 Bode-Thomas, Surulere Lagos',
 };
 
-const invalidAddressLength = {
-  email: faker.internet.email(),
-  first_name: 'Emeka',
-  last_name: 'Ofe',
-  password: 'maths102',
-  address: 'Andela',
-};
 const invalidEmailCharacter = {
   first_name: 'James',
   last_name: 'Done',
   email: 'j%%##@gmail.#om',
-  password: 'jamesdoe',
+  password: 'jamesdoe@123',
   address: '75 Bode-Thomas, Surulere Lagos',
 };
 
@@ -134,7 +127,7 @@ const existingEmail = {
   first_name: 'James',
   last_name: 'Done',
   email: 'jamesdoe@gmail.com',
-  password: 'jamesdoe',
+  password: 'jamesdoe@123',
   address: '75 Bode-Thomas, Surulere Lagos',
 };
 
@@ -171,7 +164,7 @@ const undefinedEmailLogin = {
 
 
 const nonExistingEmail = {
-  email: 'Jamesdoe@gmial.com',
+  email: 'JJamesdoe@gmail.com',
   password: 'jamesdoe',
 };
 
@@ -186,7 +179,7 @@ const emptyPasswordField = {
 
 const emptyEmailField = {
   email: '',
-  password: 'jamesdoe',
+  password: 'jamesdoe@123',
 };
 
 const correctEmailIncorrectPassword = {
@@ -197,7 +190,7 @@ const correctEmailIncorrectPassword = {
 export {
   correctUser, undefinedFirstName, undefinedAddress, InvalidAddressCharacter,
   invalidFirstNameLength, invalidFirstNameCharacter, emptyAddress, emptyEmail,
-  emptyFirstName, emptyLastName, undefinedLastName, invalidLastNameLength, invalidAddressLength,
+  emptyFirstName, emptyLastName, undefinedLastName, invalidLastNameLength,
   invalidLastNameCharacter, undefinedEmail, invalidEmailLength, invalidEmailCharacter,
   existingEmail, undefinedPassword, invalidPasswordLength, whitespacePassword, correctLogin,
   undefinedEmailLogin, nonExistingEmail, undefinedPasswordLogin, emptyPasswordField,
