@@ -185,7 +185,9 @@ class Trip {
       }
       return res.status(200).json({
         status: 'success',
-        data: rows[0],
+        data: {
+          message: 'Trip cancelled successfully',
+        },
       });
     } catch (err) {
       return res.status(400).json({
