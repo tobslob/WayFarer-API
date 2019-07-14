@@ -33,7 +33,7 @@ class Authentication {
    * @param {*} next
    */
   static async verifyToken(req, res, next) {
-    const token = req.headers.authorization || req.body.token;
+    const token = req.headers.token || req.body.token;
 
     // check if token is provided
     if (!token) {
