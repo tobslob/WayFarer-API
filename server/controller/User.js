@@ -87,7 +87,7 @@ class User {
       }
 
       const {
-        user_id, email, first_name, last_name, address, is_admin, created_on,
+        user_id, email, first_name, last_name, is_admin, created_on,
       } = rows[0];
 
       // compare user provided password against db
@@ -116,7 +116,6 @@ class User {
           email,
           first_name,
           last_name,
-          address,
           is_admin,
           created_on,
         },

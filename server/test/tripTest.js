@@ -58,7 +58,7 @@ describe(`POST ${tripUrl}`, () => {
     chai
       .request(app)
       .post(tripUrl)
-      .set('token', Token)
+      .set('authorization', Token)
       .send(correctTripDetails)
       .end((err, res) => {
         const { body } = res;
@@ -79,7 +79,7 @@ describe(`POST ${tripUrl}`, () => {
     chai
       .request(app)
       .post(tripUrl)
-      .set('token', Token1)
+      .set('authorization', Token1)
       .send(correctTripDetails)
       .end((err, res) => {
         const { body } = res;
@@ -97,7 +97,7 @@ describe(`POST ${tripUrl}`, () => {
     chai
       .request(app)
       .post(busUrl)
-      .set('token', Token1)
+      .set('authorization', Token1)
       .send(correctBusDetails)
       .end((err, res) => {
         const { body } = res;
@@ -116,7 +116,7 @@ describe(`POST ${tripUrl}`, () => {
     chai
       .request(app)
       .post(tripUrl)
-      .set('token', Token)
+      .set('authorization', Token)
       .send(conflictTripDetails)
       .end((err, res) => {
         const { body } = res;
@@ -133,9 +133,9 @@ describe(`POST ${tripUrl}`, () => {
     chai
       .request(app)
       .post(tripUrl)
-      .set('token', Token)
+      .set('authorization', Token)
       .send(undefinedTripBusId)
-      .set('token', Token)
+      .set('authorization', Token)
       .end((err, res) => {
         const { body } = res;
         expect(res.status).to.equal(400);
@@ -151,7 +151,7 @@ describe(`POST ${tripUrl}`, () => {
     chai
       .request(app)
       .post(tripUrl)
-      .set('token', Token)
+      .set('authorization', Token)
       .send(incorrectTripBusId)
       .end((err, res) => {
         const { body } = res;
@@ -168,7 +168,7 @@ describe(`POST ${tripUrl}`, () => {
     chai
       .request(app)
       .post(tripUrl)
-      .set('token', Token)
+      .set('authorization', Token)
       .send(undefinedTripDestination)
       .end((err, res) => {
         const { body } = res;
@@ -185,7 +185,7 @@ describe(`POST ${tripUrl}`, () => {
     chai
       .request(app)
       .post(tripUrl)
-      .set('token', Token)
+      .set('authorization', Token)
       .send(undefinedTripOrigin)
       .end((err, res) => {
         const { body } = res;
@@ -202,7 +202,7 @@ describe(`POST ${tripUrl}`, () => {
     chai
       .request(app)
       .post(tripUrl)
-      .set('token', Token)
+      .set('authorization', Token)
       .send(undefinedTripDate)
       .end((err, res) => {
         const { body } = res;
@@ -218,7 +218,7 @@ describe(`POST ${tripUrl}`, () => {
     chai
       .request(app)
       .post(tripUrl)
-      .set('token', Token)
+      .set('authorization', Token)
       .send(undefinedTripFare)
       .end((err, res) => {
         const { body } = res;
@@ -238,7 +238,7 @@ describe(`POST ${busUrl}`, () => {
     chai
       .request(app)
       .post(busUrl)
-      .set('token', Token)
+      .set('authorization', Token)
       .send(correctBusDetails)
       .end((err, res) => {
         const { body } = res;
@@ -258,9 +258,9 @@ describe(`POST ${busUrl}`, () => {
     chai
       .request(app)
       .post(busUrl)
-      .set('token', Token)
+      .set('authorization', Token)
       .send(undefinedNumberPlate)
-      .set('token', Token)
+      .set('authorization', Token)
       .end((err, res) => {
         const { body } = res;
         expect(res.status).to.equal(400);
@@ -276,7 +276,7 @@ describe(`POST ${busUrl}`, () => {
     chai
       .request(app)
       .post(busUrl)
-      .set('token', Token)
+      .set('authorization', Token)
       .send(undefinedBusManufacturer)
       .end((err, res) => {
         const { body } = res;
@@ -293,7 +293,7 @@ describe(`POST ${busUrl}`, () => {
     chai
       .request(app)
       .post(busUrl)
-      .set('token', Token)
+      .set('authorization', Token)
       .send(undefinedBusModel)
       .end((err, res) => {
         const { body } = res;
@@ -310,7 +310,7 @@ describe(`POST ${busUrl}`, () => {
     chai
       .request(app)
       .post(busUrl)
-      .set('token', Token)
+      .set('authorization', Token)
       .send(undefinedBusYear)
       .end((err, res) => {
         const { body } = res;
@@ -327,7 +327,7 @@ describe(`POST ${busUrl}`, () => {
     chai
       .request(app)
       .post(busUrl)
-      .set('token', Token)
+      .set('authorization', Token)
       .send(undefinedBusCapacity)
       .end((err, res) => {
         const { body } = res;
@@ -347,7 +347,7 @@ describe(`GET ${tripUrl}`, () => {
     chai
       .request(app)
       .get(tripUrl)
-      .set('token', Token)
+      .set('authorization', Token)
       .end((err, res) => {
         const { body } = res;
         expect(res.status).to.equal(200);
@@ -362,7 +362,7 @@ describe(`GET ${tripUrl}`, () => {
     chai
       .request(app)
       .get(`${tripUrl}?origin=yaba`)
-      .set('token', Token)
+      .set('authorization', Token)
       .end((err, res) => {
         const { body } = res;
         expect(res.status).to.equal(200);
@@ -377,7 +377,7 @@ describe(`GET ${tripUrl}`, () => {
     chai
       .request(app)
       .get(`${tripUrl}?destination=ikoyi`)
-      .set('token', Token)
+      .set('authorization', Token)
       .end((err, res) => {
         const { body } = res;
         expect(res.status).to.equal(200);
@@ -392,7 +392,7 @@ describe(`GET ${tripUrl}`, () => {
     chai
       .request(app)
       .get(`${tripUrl}?destination=Ikoyi`)
-      .set('token', Token)
+      .set('authorization', Token)
       .end((err, res) => {
         const { body } = res;
         expect(res.status).to.equal(404);
@@ -406,7 +406,7 @@ describe(`GET ${tripUrl}`, () => {
     chai
       .request(app)
       .get(`${tripUrl}?origin=Ikoyi`)
-      .set('token', Token)
+      .set('authorization', Token)
       .end((err, res) => {
         const { body } = res;
         expect(res.status).to.equal(404);
@@ -420,7 +420,7 @@ describe(`GET ${tripUrl}`, () => {
     chai
       .request(app)
       .get(`${tripUrl}?origin=abia`)
-      .set('token', Token)
+      .set('authorization', Token)
       .end((err, res) => {
         const { body } = res;
         expect(res.status).to.equal(404);
@@ -434,7 +434,7 @@ describe(`GET ${tripUrl}`, () => {
     chai
       .request(app)
       .get(`${tripUrl}?destination=ilupej`)
-      .set('token', Token)
+      .set('authorization', Token)
       .end((err, res) => {
         const { body } = res;
         expect(res.status).to.equal(404);
@@ -451,7 +451,7 @@ describe(`UPDATE ${tripUrl}`, () => {
     chai
       .request(app)
       .patch(`/api/v1/trips/${Trip_id}`)
-      .set('token', Token)
+      .set('authorization', Token)
       .end((err, res) => {
         const { body } = res;
         expect(res.status).to.equal(200);
@@ -466,7 +466,7 @@ describe(`UPDATE ${tripUrl}`, () => {
     chai
       .request(app)
       .patch('/api/v1/trips/10000')
-      .set('token', Token)
+      .set('authorization', Token)
       .end((err, res) => {
         const { body } = res;
         expect(res.status).to.equal(404);
@@ -481,7 +481,7 @@ describe(`UPDATE ${tripUrl}`, () => {
     chai
       .request(app)
       .patch('/api/v1/trips/1.5')
-      .set('token', Token)
+      .set('authorization', Token)
       .end((err, res) => {
         const { body } = res;
         expect(res.status).to.equal(400);

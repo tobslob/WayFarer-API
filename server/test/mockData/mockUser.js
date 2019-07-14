@@ -55,7 +55,7 @@ const emptyLastName = {
 
 const invalidLastNameLength = {
   first_name: 'James',
-  last_name: 'D',
+  last_name: '',
   email: 'jamesdoe@gmail.com',
   password: 'jamesdoe',
   address: '75 Bode-Thomas, Surulere Lagos',

@@ -125,6 +125,12 @@ class Trip {
   static async getAllTrips(req, res) {
     try {
       const { rows } = await db.query(getAllTripQuery);
+      if (rows.length <= 0) {
+        return res.status(404).json({
+          status: 'error',
+          error: 'No trips found',
+        });
+      }
       return res.status(200).json({
         status: 'success',
         data: rows,

@@ -34,7 +34,6 @@ describe(`POST ${signupUrl}`, () => {
         expect(body.data).to.be.have.property('token');
         expect(body.data).to.be.have.property('first_name');
         expect(body.data).to.be.have.property('last_name');
-        expect(body.data).to.be.have.property('address');
         expect(body.data).to.be.have.property('is_admin');
         expect(body.data).to.be.have.property('email');
         done();
@@ -80,11 +79,11 @@ describe(`POST ${signupUrl}`, () => {
       .send(invalidFirstNameLength)
       .end((err, res) => {
         const { body } = res;
-        expect(res.status).to.equal(400);
+        expect(res.status).to.equal(409);
         expect(res.status).to.be.a('number');
         expect(body).to.be.an('object');
         expect(body).to.be.have.property('error');
-        expect(body.error).to.be.equal('First name field is required with min length of 3 and must be alphabet');
+        expect(body.error).to.be.equal('User already exist');
         done();
       });
   });
@@ -169,17 +168,16 @@ describe(`POST ${signupUrl}`, () => {
       });
   });
 
-  it('Should return 400 if address length does not meet the minimum', (done) => {
+  it('Should return 201 if no address is found', (done) => {
     chai
       .request(app)
       .post(signupUrl)
       .send(invalidAddressLength)
       .end((err, res) => {
         const { body } = res;
-        expect(res.status).to.equal(400);
+        expect(res.status).to.equal(201);
         expect(res.status).to.be.a('number');
         expect(body).to.be.an('object');
-        expect(body).to.be.have.property('error');
         done();
       });
   });
