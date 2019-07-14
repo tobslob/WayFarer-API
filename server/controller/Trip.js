@@ -99,9 +99,23 @@ class Trip {
         });
       }
       const { rows } = await db.query(createTripQuery, values);
+      const {
+        trip_id, bus_id, origin,
+        destination, trip_date, fare, status,
+      } = rows[0];
+
+      const id = trip_id;
       return res.status(201).json({
         status: 'success',
-        data: rows[0],
+        data: {
+          id,
+          bus_id,
+          origin,
+          destination,
+          trip_date,
+          fare,
+          status,
+        },
       });
     } catch (errors) {
       return res.status(400).json({
