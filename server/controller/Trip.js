@@ -24,6 +24,7 @@ class Trip {
 
     const { error } = CheckForValidInput.addBusForTrip(req.body);
     if (error) {
+      console.log(error);
       return res.status(400).json({
         status: 'error',
         error: error.details[0].message,
@@ -45,6 +46,7 @@ class Trip {
         data: rows[0],
       });
     } catch (errors) {
+      console.log(errors);
       if (errors.routine === '_bt_check_unique') {
         return res.status(409).json({
           status: 'error',
@@ -74,6 +76,7 @@ class Trip {
 
     const { error } = CheckForValidInput.createAtrip(req.body);
     if (error) {
+      console.log(error);
       return res.status(400).json({
         status: 'error',
         error: error.details[0].message,
@@ -104,6 +107,7 @@ class Trip {
         data: rows[0],
       });
     } catch (errors) {
+      console.log(errors);
       if (errors.routine === 'ri_ReportViolation') {
         return res.status(400).json({
           status: 'error',
@@ -136,6 +140,7 @@ class Trip {
         data: rows,
       });
     } catch (error) {
+      console.log(error);
       return res.status(400).json({
         error: 'Something went wrong, try again',
       });
@@ -156,6 +161,7 @@ class Trip {
     }
     const { error } = CheckForValidInput.checkParams(req.params);
     if (error) {
+      console.log(error);
       return res.status(400).json({
         status: 'error',
         error: error.details[0].message,
@@ -180,6 +186,7 @@ class Trip {
         data: rows[0],
       });
     } catch (err) {
+      console.log(err);
       return res.status(400).json({
         status: 'error',
         error: 'Something went wrong, try again',
@@ -196,6 +203,7 @@ class Trip {
   static async getTripByDestOrOrigin(req, res, next) {
     const { error } = CheckForValidInput.checkTripParams(req.query);
     if (error) {
+      console.log(error);
       return res.status(400).json({
         status: 'error',
         error: error.details[0].message,
@@ -216,6 +224,7 @@ class Trip {
           data: rows,
         });
       } catch (errors) {
+        console.log(errors);
         return res.status(400).json({
           status: 'error',
           error: 'Something went wrong, try again',
