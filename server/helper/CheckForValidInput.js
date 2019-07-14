@@ -51,8 +51,7 @@ class CheckForValidInput {
    */
   static createAtrip(trip) {
     const schema = Joi.object().keys({
-      bus_id: Joi.number().integer()
-        .required()
+      bus_id: Joi.number().integer().required()
         .error(() => 'bus id is required and should be an integer number'),
       origin: Joi.string().trim().strict().regex(/^[a-zA-Z]+$/)
         .required()
@@ -60,7 +59,7 @@ class CheckForValidInput {
       destination: Joi.string().trim().strict().regex(/^[a-zA-Z]+$/)
         .required()
         .error(() => 'destination is required and should not be less than 3 characters and must be lowercase'),
-      trip_date: Joi.date().required()
+      trip_date: Joi.string().required()
         .error(() => 'trip date is required'),
       fare: Joi.number().min(1)
         .required()
