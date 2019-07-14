@@ -10,17 +10,15 @@ class CheckForValidInput {
       email: Joi.string().email().trim().required()
         .error(() => 'Valid email field is required'),
       first_name: Joi.string().trim().strict().regex(/^[a-zA-Z]+$/)
-        .min(3)
         .required()
         .error(() => 'First name field is required with min length of 3 and must be alphabet'),
       last_name: Joi.string().trim().strict().regex(/^[a-zA-Z]+$/)
-        .min(3)
         .required()
         .error(() => 'last name field is required with min length of 3 and must be alphabet'),
-      password: Joi.string().regex(/^[a-zA-Z0-9]{6,30}$/).trim().strict()
+      password: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/).trim().strict()
         .required()
         .error(() => 'Password field is required with mininum 6 characters'),
-      address: Joi.string().trim().strict().min(25)
+      address: Joi.string().trim().strict()
         .error(() => 'Address field is required and should not be less than 25 characters'),
     });
     return Joi.validate(user, schema);
@@ -62,6 +60,8 @@ class CheckForValidInput {
       fare: Joi.number().min(1)
         .required()
         .error(() => 'fare is required and can not be less than $1'),
+      token: Joi.string()
+        .trim().strict(),
     });
     return Joi.validate(trip, schema);
   }
@@ -90,6 +90,8 @@ class CheckForValidInput {
       model: Joi.string().trim().strict()
         .required()
         .error(() => 'bus model is required'),
+      token: Joi.string()
+        .trim().strict(),
     });
     return Joi.validate(bus, schema);
   }
@@ -103,6 +105,8 @@ class CheckForValidInput {
       trip_id: Joi.number().integer()
         .required()
         .error(() => 'Params must be integer!'),
+      token: Joi.string()
+        .trim().strict(),
     });
     return Joi.validate(trip_id, schema);
   }
@@ -116,6 +120,8 @@ class CheckForValidInput {
       booking_id: Joi.number().integer()
         .required()
         .error(() => 'Params must be integer!'),
+      token: Joi.string()
+        .trim().strict(),
     });
     return Joi.validate(booking_id, schema);
   }
@@ -132,6 +138,8 @@ class CheckForValidInput {
       seat_number: Joi.number().integer()
         .required()
         .error(() => 'Seat number must be an Integer number!'),
+      token: Joi.string()
+        .trim().strict(),
     });
     return Joi.validate(trip_id, schema);
   }
@@ -147,6 +155,8 @@ class CheckForValidInput {
         .error(() => 'Enter a valid lowercase string value'),
       origin: Joi.string().trim().strict()
         .error(() => 'Enter a valid lowercase string value'),
+      token: Joi.string()
+        .trim().strict(),
     });
     return Joi.validate(filterTrip, schema);
   }

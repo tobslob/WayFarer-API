@@ -46,7 +46,7 @@ describe(`POST ${bookingsUrl}`, () => {
     chai
       .request(app)
       .post(tripUrl)
-      .set('token', Token)
+      .set('authorization', Token)
       .send(correctTripDetails)
       .end((err, res) => {
         const { body } = res;
@@ -60,7 +60,7 @@ describe(`POST ${bookingsUrl}`, () => {
     chai
       .request(app)
       .post(bookingsUrl)
-      .set('token', Token)
+      .set('authorization', Token)
       .send({ trip_id: `${Trip_id}`, seat_number: 1 })
       .end((err, res) => {
         const { body } = res;
@@ -77,7 +77,7 @@ describe(`POST ${bookingsUrl}`, () => {
     chai
       .request(app)
       .post(bookingsUrl)
-      .set('token', Token)
+      .set('authorization', Token)
       .send({ trip_id: `${Trip_id}`, seat_number: 1 })
       .end((err, res) => {
         const { body } = res;
@@ -93,7 +93,7 @@ describe(`POST ${bookingsUrl}`, () => {
     chai
       .request(app)
       .post(bookingsUrl)
-      .set('token', Token)
+      .set('authorization', Token)
       .send({ trip_id: 90000000, seat_number: 2 })
       .end((err, res) => {
         const { body } = res;
@@ -110,7 +110,7 @@ describe(`POST ${bookingsUrl}`, () => {
     chai
       .request(app)
       .post(bookingsUrl)
-      .set('token', Token1)
+      .set('authorization', Token1)
       .send({ trip_id: `${Trip_id}`, seat_number: 1 })
       .end((err, res) => {
         const { body } = res;
@@ -127,7 +127,7 @@ describe(`POST ${bookingsUrl}`, () => {
     chai
       .request(app)
       .post(bookingsUrl)
-      .set('token', Token1)
+      .set('authorization', Token1)
       .send({ trip_id: 'kas', seat_number: 2 })
       .end((err, res) => {
         const { body } = res;
@@ -144,7 +144,7 @@ describe(`POST ${bookingsUrl}`, () => {
     chai
       .request(app)
       .post(bookingsUrl)
-      .set('token', Token1)
+      .set('authorization', Token1)
       .send({ trip_id: 18, seat_number: 'yt' })
       .end((err, res) => {
         const { body } = res;
@@ -187,7 +187,7 @@ describe(`GET ${bookingsUrl}`, () => {
     chai
       .request(app)
       .get(bookingsUrl)
-      .set('token', Token)
+      .set('authorization', Token)
       .end((err, res) => {
         const { body } = res;
         expect(res.status).to.equal(200);
@@ -202,7 +202,7 @@ describe(`GET ${bookingsUrl}`, () => {
     chai
       .request(app)
       .get(bookingsUrl)
-      .set('token', Token1)
+      .set('authorization', Token1)
       .end((err, res) => {
         const { body } = res;
         expect(res.status).to.equal(404);
@@ -243,7 +243,7 @@ describe(`PATCH ${bookingsUrl}`, () => {
     chai
       .request(app)
       .patch(`${bookingsUrl}/${Booking_id}`)
-      .set('token', Token)
+      .set('authorization', Token)
       .send({ trip_id: `${Trip_id}`, seat_number: 7 })
       .end((err, res) => {
         const { body } = res;
@@ -260,7 +260,7 @@ describe(`PATCH ${bookingsUrl}`, () => {
     chai
       .request(app)
       .patch(`${bookingsUrl}/${Booking_id}`)
-      .set('token', Token1)
+      .set('authorization', Token1)
       .send({ trip_id: `${Trip_id}`, seat_number: 7 })
       .end((err, res) => {
         const { body } = res;
@@ -277,7 +277,7 @@ describe(`PATCH ${bookingsUrl}`, () => {
     chai
       .request(app)
       .patch(`${bookingsUrl}/${Booking_id}`)
-      .set('token', Token)
+      .set('authorization', Token)
       .send({ trip_id: `${Trip_id}`, seat_number: 87 })
       .end((err, res) => {
         const { body } = res;
@@ -320,7 +320,7 @@ describe(`DELETE ${bookingsUrl}`, () => {
     chai
       .request(app)
       .delete(`${bookingsUrl}/${Booking_id}`)
-      .set('token', Token)
+      .set('authorization', Token)
       .end((err, res) => {
         const { body } = res;
         expect(res.status).to.equal(200);
@@ -337,7 +337,7 @@ describe(`DELETE ${bookingsUrl}`, () => {
     chai
       .request(app)
       .delete(`${bookingsUrl}/78`)
-      .set('token', Token1)
+      .set('authorization', Token1)
       .end((err, res) => {
         const { body } = res;
         expect(res.status).to.equal(404);
@@ -352,7 +352,7 @@ describe(`DELETE ${bookingsUrl}`, () => {
     chai
       .request(app)
       .delete(`${bookingsUrl}/ure`)
-      .set('token', Token1)
+      .set('authorization', Token1)
       .end((err, res) => {
         const { body } = res;
         expect(res.status).to.equal(400);
@@ -367,7 +367,7 @@ describe(`DELETE ${bookingsUrl}`, () => {
     chai
       .request(app)
       .patch(`/api/v1/trips/${Trip_id}`)
-      .set('token', Token)
+      .set('authorization', Token)
       .end((err, res) => {
         const { body } = res;
         expect(res.status).to.equal(200);
@@ -381,7 +381,7 @@ describe(`DELETE ${bookingsUrl}`, () => {
     chai
       .request(app)
       .post(bookingsUrl)
-      .set('token', Token1)
+      .set('authorization', Token1)
       .send({ trip_id: `${Trip_id}`, seat_number: 2 })
       .end((err, res) => {
         const { body } = res;
