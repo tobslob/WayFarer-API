@@ -99,25 +99,17 @@ class Trip {
         });
       }
       const { rows } = await db.query(createTripQuery, values);
-      const {
-        trip_id, bus_id, origin,
-        destination, trip_date, fare, status,
-      } = rows[0];
-
-      const id = trip_id;
       return res.status(201).json({
         status: 'success',
-        data: {
-          id,
-          bus_id,
-          origin,
-          destination,
-          trip_date,
-          fare,
-          status,
-        },
+        data: rows[0],
       });
     } catch (errors) {
+      if (errors.routine === 'ri_ReportViolation') {
+        return res.status(400).json({
+          status: 'error',
+          error: "Bus doesn't exist in the database",
+        });
+      }
       return res.status(400).json({
         status: 'error',
         error: 'Something went wrong, try again',

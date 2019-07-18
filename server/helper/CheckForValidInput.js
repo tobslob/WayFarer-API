@@ -25,7 +25,7 @@ class CheckForValidInput {
         .error(() => 'last name field is required with min length of 3 and must be alphabet'),
       password: Joi.string().trim().strict().regex(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/)
         .required()
-        .error(() => 'Password field is required with mininum 6 characters'),
+        .error(() => 'Password field is required with mininum 6 letters and a characters'),
     });
     return Joi.validate(user, schema, validationOptions);
   }
@@ -51,7 +51,7 @@ class CheckForValidInput {
    */
   static createAtrip(trip) {
     const schema = Joi.object().keys({
-      bus_id: Joi.number().integer()
+      bus_id: Joi.number().integer().required()
         .error(() => 'bus id is required and should be an integer number'),
       origin: Joi.string().trim()
         .required()
@@ -59,9 +59,9 @@ class CheckForValidInput {
       destination: Joi.string().trim()
         .required()
         .error(() => 'destination is required and should not be less than 3 characters and must be lowercase'),
-      trip_date: Joi.string()
+      trip_date: Joi.date().required()
         .error(() => 'trip date is required'),
-      fare: Joi.number()
+      fare: Joi.number().required()
         .error(() => 'fare is required and can not be less than $1'),
     });
     return Joi.validate(trip, schema, validationOptions);
@@ -76,12 +76,11 @@ class CheckForValidInput {
     const schema = Joi.object().keys({
       number_plate: Joi.string().trim().strict().regex(/^[A-Za-z]{3}-[0-9]{3}-[A-Za-z]{2}$/)
         .required()
-        .error(() => 'Number plate is required with this Nig format xxx-xxx-xxx'),
+        .error(() => 'Number plate is required with this Nig format xxx-xxx-xx'),
       manufacturer: Joi.string().trim().strict().regex(/^[a-zA-Z]+$/)
-        .min(3)
         .required()
         .error(() => 'bus manufacturer is required'),
-      year: Joi.string().trim().strict()
+      year: Joi.string().trim().strict().regex(/^[0-9]+$/)
         .required()
         .error(() => 'Correct year format is required'),
       capacity: Joi.number().integer()

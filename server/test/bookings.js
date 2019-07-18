@@ -3,10 +3,10 @@
 // import app from '../index';
 // import { correctTripDetails } from './mockData/mockTrip';
 
-// // Define the expect assertion
+// Define the expect assertion
 // const { expect } = chai;
 
-// // chai middleware
+// chai middleware
 // chai.use(chaiHttp);
 
 // let Token;
@@ -34,33 +34,33 @@
 //     chai
 //       .request(app)
 //       .post(signinUrl)
-//       .send({ email: 'jamesdoe@gmail.com', password: 'jamesdoe' })
-//       .end((err, res) => {
-//         const { body } = res;
-//         Token1 = body.data.token;
-//         done();
-//       });
+//       .send({ email: 'jamesdoe@gmail.com', password: 'jamesdoe' });
+//     // .end((err, res) => {
+//     // const { body } = res;
+//     // Token1 = body.data.token;
+//     done();
 //   });
+// });
 
-//   it('should create a trip successful', (done) => {
-//     chai
-//       .request(app)
-//       .post(tripUrl)
-//       .set('authorization', Token)
-//       .send(correctTripDetails)
-//       .end((err, res) => {
-//         const { body } = res;
-//         Trip_id = body.data.trip_id;
-//         done();
-//       });
-//   });
+// it('should create a trip successful', (done) => {
+//   chai
+//     .request(app)
+//     .post(tripUrl)
+//     .set('token', Token)
+//     .send(correctTripDetails)
+//     .end((err, res) => {
+//       const { body } = res;
+//       Trip_id = body.data.trip_id;
+//       done();
+//     });
+// });
 
 
 //   it('should book a trip successfully', (done) => {
 //     chai
 //       .request(app)
 //       .post(bookingsUrl)
-//       .set('authorization', Token)
+//       .set('token', Token)
 //       .send({ trip_id: `${Trip_id}`, seat_number: 1 })
 //       .end((err, res) => {
 //         const { body } = res;
@@ -77,7 +77,7 @@
 //     chai
 //       .request(app)
 //       .post(bookingsUrl)
-//       .set('authorization', Token)
+//       .set('token', Token)
 //       .send({ trip_id: `${Trip_id}`, seat_number: 1 })
 //       .end((err, res) => {
 //         const { body } = res;
@@ -93,7 +93,7 @@
 //     chai
 //       .request(app)
 //       .post(bookingsUrl)
-//       .set('authorization', Token)
+//       .set('token', Token)
 //       .send({ trip_id: 90000000, seat_number: 2 })
 //       .end((err, res) => {
 //         const { body } = res;
@@ -110,7 +110,7 @@
 //     chai
 //       .request(app)
 //       .post(bookingsUrl)
-//       .set('authorization', Token1)
+//       .set('token', Token1)
 //       .send({ trip_id: `${Trip_id}`, seat_number: 1 })
 //       .end((err, res) => {
 //         const { body } = res;
@@ -127,7 +127,7 @@
 //     chai
 //       .request(app)
 //       .post(bookingsUrl)
-//       .set('authorization', Token1)
+//       .set('token', Token1)
 //       .send({ trip_id: 'kas', seat_number: 2 })
 //       .end((err, res) => {
 //         const { body } = res;
@@ -144,7 +144,7 @@
 //     chai
 //       .request(app)
 //       .post(bookingsUrl)
-//       .set('authorization', Token1)
+//       .set('token', Token1)
 //       .send({ trip_id: 18, seat_number: 'yt' })
 //       .end((err, res) => {
 //         const { body } = res;
@@ -187,7 +187,7 @@
 //     chai
 //       .request(app)
 //       .get(bookingsUrl)
-//       .set('authorization', Token)
+//       .set('token', Token)
 //       .end((err, res) => {
 //         const { body } = res;
 //         expect(res.status).to.equal(200);
@@ -202,7 +202,7 @@
 //     chai
 //       .request(app)
 //       .get(bookingsUrl)
-//       .set('authorization', Token1)
+//       .set('token', Token1)
 //       .end((err, res) => {
 //         const { body } = res;
 //         expect(res.status).to.equal(404);
@@ -243,7 +243,7 @@
 //     chai
 //       .request(app)
 //       .patch(`${bookingsUrl}/${Booking_id}`)
-//       .set('authorization', Token)
+//       .set('token', Token)
 //       .send({ trip_id: `${Trip_id}`, seat_number: 7 })
 //       .end((err, res) => {
 //         const { body } = res;
@@ -260,7 +260,7 @@
 //     chai
 //       .request(app)
 //       .patch(`${bookingsUrl}/${Booking_id}`)
-//       .set('authorization', Token1)
+//       .set('token', Token1)
 //       .send({ trip_id: `${Trip_id}`, seat_number: 7 })
 //       .end((err, res) => {
 //         const { body } = res;
@@ -277,7 +277,7 @@
 //     chai
 //       .request(app)
 //       .patch(`${bookingsUrl}/${Booking_id}`)
-//       .set('authorization', Token)
+//       .set('token', Token)
 //       .send({ trip_id: `${Trip_id}`, seat_number: 87 })
 //       .end((err, res) => {
 //         const { body } = res;
@@ -320,7 +320,7 @@
 //     chai
 //       .request(app)
 //       .delete(`${bookingsUrl}/${Booking_id}`)
-//       .set('authorization', Token)
+//       .set('token', Token)
 //       .end((err, res) => {
 //         const { body } = res;
 //         expect(res.status).to.equal(200);
@@ -337,7 +337,7 @@
 //     chai
 //       .request(app)
 //       .delete(`${bookingsUrl}/78`)
-//       .set('authorization', Token1)
+//       .set('token', Token1)
 //       .end((err, res) => {
 //         const { body } = res;
 //         expect(res.status).to.equal(404);
@@ -352,7 +352,7 @@
 //     chai
 //       .request(app)
 //       .delete(`${bookingsUrl}/ure`)
-//       .set('authorization', Token1)
+//       .set('token', Token1)
 //       .end((err, res) => {
 //         const { body } = res;
 //         expect(res.status).to.equal(400);
@@ -367,7 +367,7 @@
 //     chai
 //       .request(app)
 //       .patch(`/api/v1/trips/${Trip_id}`)
-//       .set('authorization', Token)
+//       .set('token', Token)
 //       .end((err, res) => {
 //         const { body } = res;
 //         expect(res.status).to.equal(200);
@@ -381,7 +381,7 @@
 //     chai
 //       .request(app)
 //       .post(bookingsUrl)
-//       .set('authorization', Token1)
+//       .set('token', Token1)
 //       .send({ trip_id: `${Trip_id}`, seat_number: 2 })
 //       .end((err, res) => {
 //         const { body } = res;

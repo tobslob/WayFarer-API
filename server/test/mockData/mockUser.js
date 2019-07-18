@@ -5,14 +5,12 @@ const correctUser = {
   first_name: 'James',
   email: faker.internet.email(),
   password: 'jamesdoe@123',
-  address: '75 Bode-Thomas, Surulere Lagos',
 };
 
 const undefinedFirstName = {
   last_name: 'Done',
   email: 'jamedoe@gmail.com',
   password: 'jamesdoe6@123',
-  address: '75 Bode-Thomas, Surulere Lagos',
 };
 
 const emptyFirstName = {
@@ -20,7 +18,6 @@ const emptyFirstName = {
   last_name: 'Done',
   email: 'jamsdoe@gmail.com',
   password: 'jamesdoe@123',
-  address: '75 Bode-Thomas, Surulere Lagos',
 };
 
 const invalidFirstNameLength = {
@@ -28,7 +25,6 @@ const invalidFirstNameLength = {
   last_name: 'Done',
   email: 'jamesdoe@gmail.com',
   password: 'jamesdoe@123',
-  address: '75 Bode-Thomas, Surulere Lagos',
 };
 
 const invalidFirstNameCharacter = {
@@ -36,7 +32,6 @@ const invalidFirstNameCharacter = {
   last_name: 'Done',
   email: 'jamesdoe@gmail.com',
   password: 'jamesdoe@123',
-  address: '75 Bode-Thomas, Surulere Lagos',
 };
 
 const undefinedLastName = {
@@ -50,7 +45,6 @@ const emptyLastName = {
   lastName: '',
   email: 'jamesdoe@gmail.com',
   password: 'jamesdoe@123',
-  address: '75 Bode-Thomas, Surulere Lagos',
 };
 
 const invalidLastNameLength = {
@@ -58,7 +52,6 @@ const invalidLastNameLength = {
   last_name: '',
   email: 'jamesdoe@gmail.com',
   password: 'jamesdoe@123',
-  address: '75 Bode-Thomas, Surulere Lagos',
 };
 
 const invalidLastNameCharacter = {
@@ -66,14 +59,12 @@ const invalidLastNameCharacter = {
   last_name: 'Do$e',
   email: 'jamesdoe@gmail.com',
   password: 'jamesdoe@123',
-  address: '75 Bode-Thomas, Surulere Lagos',
 };
 
 const undefinedEmail = {
   first_name: 'James',
   last_name: 'Done',
   password: 'jamesdoe@123',
-  address: '75 Bode-Thomas, Surulere Lagos',
 };
 
 const emptyEmail = {
@@ -81,7 +72,6 @@ const emptyEmail = {
   last_name: 'Done',
   email: '',
   password: 'jamesdoe@123',
-  address: '75 Bode-Thomas, Surulere Lagos',
 };
 
 const undefinedAddress = {
@@ -89,14 +79,6 @@ const undefinedAddress = {
   first_name: 'James',
   last_name: 'Done',
   password: 'jamesdoe@123',
-};
-
-const emptyAddress = {
-  first_name: 'James',
-  last_name: 'Done',
-  email: faker.internet.email(),
-  password: 'jamesdoe@123',
-  address: '',
 };
 
 const InvalidAddressCharacter = {
@@ -112,7 +94,6 @@ const invalidEmailLength = {
   last_name: 'Done',
   email: 'd@g.com',
   password: 'jamesdoe@123',
-  address: '75 Bode-Thomas, Surulere Lagos',
 };
 
 const invalidEmailCharacter = {
@@ -120,7 +101,6 @@ const invalidEmailCharacter = {
   last_name: 'Done',
   email: 'j%%##@gmail.#om',
   password: 'jamesdoe@123',
-  address: '75 Bode-Thomas, Surulere Lagos',
 };
 
 const existingEmail = {
@@ -128,14 +108,12 @@ const existingEmail = {
   last_name: 'Done',
   email: 'jamesdoe@gmail.com',
   password: 'jamesdoe@123',
-  address: '75 Bode-Thomas, Surulere Lagos',
 };
 
 const undefinedPassword = {
   first_name: 'James',
   last_name: 'Done',
   email: 'jonahjang@gmail.com',
-  address: '75 Bode-Thomas, Surulere Lagos',
 };
 
 
@@ -189,7 +167,7 @@ const correctEmailIncorrectPassword = {
 
 export {
   correctUser, undefinedFirstName, undefinedAddress, InvalidAddressCharacter,
-  invalidFirstNameLength, invalidFirstNameCharacter, emptyAddress, emptyEmail,
+  invalidFirstNameLength, invalidFirstNameCharacter, emptyEmail,
   emptyFirstName, emptyLastName, undefinedLastName, invalidLastNameLength,
   invalidLastNameCharacter, undefinedEmail, invalidEmailLength, invalidEmailCharacter,
   existingEmail, undefinedPassword, invalidPasswordLength, whitespacePassword, correctLogin,

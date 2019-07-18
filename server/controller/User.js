@@ -32,11 +32,9 @@ class User {
     try {
       const { rows } = await db.query(createUserQuery, values);
       const user = rows[0];
-      const token = Authentication.generateToken(
-        rows[0].user_id,
-        rows[0].email,
-        rows[0].is_admin,
-      );
+      const { user_id, email, is_admin } = rows[0];
+
+      const token = Authentication.generateToken(user_id, email, is_admin);
 
       return res.status(201).json({
         status: 'success',
@@ -59,6 +57,7 @@ class User {
     }
   }
 
+
   /**
        * log a user in to the app
        * @param {*} req
@@ -76,7 +75,6 @@ class User {
     try {
       // Select all user record where email is equal db email
       const { rows } = await db.query(loginUserQuery, [req.body.email]);
-
       // check if user exist in database
       if (!rows[0]) {
         return res.status(404).json({
@@ -85,26 +83,21 @@ class User {
         });
       }
 
-      const {
-        user_id, email, first_name, last_name, is_admin, created_on,
-      } = rows[0];
-
       // compare user provided password against db
       if (!Helper.comparePassword(rows[0].password, req.body.password)) {
-        return res
-          .status(401)
-          .json({
-            status: 'error',
-            error: 'Email/Password incorrect',
-          });
+        return res.status(401).json({
+          status: 'error',
+          error: 'Email/Password incorrect',
+        });
       }
 
+      const {
+        user_id, email, is_admin,
+        first_name, last_name,
+      } = rows[0];
+
       // generate token
-      const token = Authentication.generateToken(
-        rows[0].user_id,
-        rows[0].email,
-        rows[0].is_admin,
-      );
+      const token = Authentication.generateToken(user_id, email, is_admin);
 
       // return success message
       return res.status(200).json({
@@ -113,10 +106,9 @@ class User {
           token,
           user_id,
           email,
+          is_admin,
           first_name,
           last_name,
-          is_admin,
-          created_on,
         },
       });
     } catch (errors) {
