@@ -10,6 +10,8 @@ WayFarer is a public bus transportation booking server
 
 - User can **sign up**
 - User can **login**
+- Admin can **add a bus for a trip**
+- Admin can **get all bus**
 - Admin can **create a trip**
 - Admin can **cancel a trip**
 - Both Admin and Users can **see all trips**
@@ -62,6 +64,10 @@ npm test
 `- POST /api/v1/auth/signup Create user account`
 
 `- POST /api/api/v1/auth/signin Login a user`
+
+`- POST /api/v1/bus Create a bus`
+
+`- GET /api/v1/bus Get all bus`
 
 `- POST /api/v1/trips Create a trip`
 

@@ -15,6 +15,8 @@ const cancelAtripQuery = `UPDATE trip
 
 const getAllTripQuery = 'SELECT * FROM trip';
 
+const getAllBusQuery = 'SELECT * FROM bus';
+
 const checkIfBusIsAvailableQuery = 'SELECT * FROM trip WHERE (trip_date = $1 AND bus_id = $2 AND status = $3)';
 
 const filterTripQuery = 'SELECT * FROM trip WHERE (destination = $1 OR origin = $2)';
@@ -26,4 +28,5 @@ export {
   cancelAtripQuery,
   checkIfBusIsAvailableQuery,
   filterTripQuery,
+  getAllBusQuery,
 };
