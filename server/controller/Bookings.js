@@ -184,6 +184,14 @@ class Bookings {
        * @param {*} res
        */
   static async changeSeat(req, res) {
+    const { error } = CheckForValidInput.checkBooking(req.body)
+      && CheckForValidInput.checkBookParams(req.body);
+    if (error) {
+      return res.status(400).json({
+        status: 'error',
+        error: error.details[0].message,
+      });
+    }
     try {
       const values = [
         req.body.seat_number,
