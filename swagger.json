@@ -2,12 +2,9 @@
   "swagger": "2.0",
   "info": {
     "version": "1.0",
-    "title": "Way Farer",
+    "title": "WAY-FARER",
     "description": "WayFarer is a public bus transportation booking server",
-    "contact": {
-      "Name:" : "Odutola Kazeem Oluwatobi",
-      "email:" : "kazmobileapp@gmail.com"
-    }
+    "contact": {}
   },
   "host": "way-farer-app.herokuapp.com",
   "basePath": "/api/v1",
@@ -363,14 +360,14 @@
         }
       }
     },
-    "/trips/86": {
+    "/trips/{trip_id}": {
       "patch": {
         "description": "TODO: Add Description",
         "summary": "Cancel Trip",
         "tags": [
           "Trips"
         ],
-        "operationId": "Trips86Patch",
+        "operationId": "TripsByTripIdPatch",
         "deprecated": false,
         "produces": [
           "application/json"
@@ -384,8 +381,8 @@
             "description": ""
           },
           {
-            "name": "Content-Type",
-            "in": "header",
+            "name": "trip_id",
+            "in": "path",
             "required": true,
             "type": "string",
             "description": ""
@@ -480,14 +477,14 @@
         }
       }
     },
-    "/bookings/29": {
+    "/bookings/{booking_id}": {
       "delete": {
         "description": "TODO: Add Description",
         "summary": "Delete Booking",
         "tags": [
           "Bookings"
         ],
-        "operationId": "Bookings29Delete",
+        "operationId": "BookingsByBookingIdDelete",
         "deprecated": false,
         "produces": [
           "application/json"
@@ -506,6 +503,13 @@
             "required": true,
             "type": "string",
             "description": ""
+          },
+          {
+            "name": "booking_id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": ""
           }
         ],
         "responses": {
@@ -517,11 +521,11 @@
       },
       "patch": {
         "description": "TODO: Add Description",
-        "summary": "Change booking seat",
+        "summary": "Change Booking Seat number",
         "tags": [
           "Bookings"
         ],
-        "operationId": "Bookings29Patch",
+        "operationId": "BookingsByBookingIdPatch",
         "deprecated": false,
         "produces": [
           "application/json"
@@ -550,6 +554,13 @@
             "required": true,
             "type": "integer",
             "format": "int32",
+            "description": ""
+          },
+          {
+            "name": "booking_id",
+            "in": "path",
+            "required": true,
+            "type": "string",
             "description": ""
           }
         ],
