@@ -5,6 +5,7 @@ import bodyparser from 'body-parser';
 import swaggerUI from 'swagger-ui-express';
 import user from './routes/api/user';
 import trip from './routes/api/trip';
+import bus from './routes/api/bus';
 import bookings from './routes/api/bookings';
 import docs from '../swagger.json';
 
@@ -17,6 +18,7 @@ app.use(bodyparser.json());
 // API routes
 app.use('/api/v1/auth', user);
 app.use('/api/v1', trip);
+app.use('/api/v1', bus);
 app.use('/api/v1', bookings);
 
 // Home page route

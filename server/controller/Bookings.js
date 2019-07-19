@@ -185,22 +185,30 @@ class Bookings {
        */
   static async changeSeat(req, res) {
     const { error } = CheckForValidInput.checkBooking(req.body)
-      && CheckForValidInput.checkBookParams(req.body);
+      && CheckForValidInput.checkBookParams(req.params);
     if (error) {
       return res.status(400).json({
         status: 'error',
         error: error.details[0].message,
       });
     }
+
+    if (!req.body.seat_number) {
+      seat_number = Math.floor(Math.random() * (18 - 1) + 1);
+    } else {
+      // eslint-disable-next-line prefer-destructuring
+      seat_number = req.body.seat_number;
+    }
+
+    const values = [
+      seat_number,
+      req.user.email,
+      req.user.user_id,
+      req.params.booking_id,
+    ];
     try {
-      const values = [
-        req.body.seat_number,
-        req.user.email,
-        req.user.user_id,
-        req.params.booking_id,
-      ];
       const bookings = await db.query(checkBookingsQuery,
-        [req.body.trip_id, req.body.seat_number]);
+        [req.body.trip_id, seat_number]);
       if (bookings.rows[0]) {
         return res.status(400).json({
           status: 'error',
@@ -217,7 +225,7 @@ class Bookings {
       }
 
       const bus = await db.query(findAbusQuery, [trip.rows[0].bus_id]);
-      if (bus.rows[0].capacity < req.body.seat_number) {
+      if (bus.rows[0].capacity < seat_number) {
         return res.status(400).json({
           status: 'error',
           error: 'seat not available, choose a lower seat number',
@@ -236,6 +244,7 @@ class Bookings {
         data: userBooking.rows[0],
       });
     } catch (err) {
+      console.log(err);
       return res.status(400).json({
         status: 'error',
         error: 'Something went wrong, try again',

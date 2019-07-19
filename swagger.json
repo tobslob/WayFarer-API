@@ -4,10 +4,21 @@
     "version": "1.0",
     "title": "Way Farer",
     "description": "WayFarer is a public bus transportation booking server",
-    "contact": {}
+    "contact": {
+      "Name:" : "Odutola Kazeem Oluwatobi",
+      "email:" : "kazmobileapp@gmail.com"
+    }
   },
   "host": "way-farer-app.herokuapp.com",
   "basePath": "/api/v1",
+  "securityDefinitions": {
+    "token": {
+      "type": "apiKey",
+      "description": "",
+      "name": "token",
+      "in": "header"
+    }
+  },
   "schemes": [
     "https"
   ],
@@ -18,58 +29,12 @@
     "application/json"
   ],
   "paths": {
-    "/auth/signin": {
-      "post": {
-        "description": "TODO: Add Description",
-        "summary": "admin signin",
-        "tags": [
-          "Authorization"
-        ],
-        "operationId": "AuthSigninPost",
-        "deprecated": false,
-        "produces": [
-          "application/json"
-        ],
-        "consumes": [
-          "application/x-www-form-urlencoded"
-        ],
-        "parameters": [
-          {
-            "name": "Content-Type",
-            "in": "header",
-            "required": true,
-            "type": "string",
-            "description": ""
-          },
-          {
-            "name": "email",
-            "in": "formData",
-            "required": true,
-            "type": "string",
-            "description": ""
-          },
-          {
-            "name": "password",
-            "in": "formData",
-            "required": true,
-            "type": "string",
-            "description": ""
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {}
-          }
-        }
-      }
-    },
     "/auth/signup": {
       "post": {
         "description": "TODO: Add Description",
-        "summary": "user signup",
+        "summary": "Create User",
         "tags": [
-          "Authorization"
+          "Authentication"
         ],
         "operationId": "AuthSignupPost",
         "deprecated": false,
@@ -128,17 +93,18 @@
             "description": "",
             "headers": {}
           }
-        }
+        },
+        "security": []
       }
     },
-    "/trips": {
+    "/auth/signin": {
       "post": {
         "description": "TODO: Add Description",
-        "summary": "post trip",
+        "summary": "Sign-in User",
         "tags": [
-          "Trips"
+          "Authentication"
         ],
-        "operationId": "TripsPost",
+        "operationId": "AuthSigninPost",
         "deprecated": false,
         "produces": [
           "application/json"
@@ -155,79 +121,15 @@
             "description": ""
           },
           {
-            "name": "token",
-            "in": "header",
-            "required": true,
-            "type": "string",
-            "description": ""
-          },
-          {
-            "name": "bus_id",
-            "in": "formData",
-            "required": true,
-            "type": "integer",
-            "format": "int32",
-            "description": ""
-          },
-          {
-            "name": "trip_date",
+            "name": "email",
             "in": "formData",
             "required": true,
             "type": "string",
             "description": ""
           },
           {
-            "name": "origin",
+            "name": "password",
             "in": "formData",
-            "required": true,
-            "type": "string",
-            "description": ""
-          },
-          {
-            "name": "destination",
-            "in": "formData",
-            "required": true,
-            "type": "string",
-            "description": ""
-          },
-          {
-            "name": "fare",
-            "in": "formData",
-            "required": true,
-            "type": "integer",
-            "format": "int32",
-            "description": ""
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {}
-          }
-        }
-      },
-      "get": {
-        "description": "TODO: Add Description",
-        "summary": "get all trips",
-        "tags": [
-          "Trips"
-        ],
-        "operationId": "TripsGet",
-        "deprecated": false,
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "Content-Type",
-            "in": "header",
-            "required": true,
-            "type": "string",
-            "description": ""
-          },
-          {
-            "name": "token",
-            "in": "header",
             "required": true,
             "type": "string",
             "description": ""
@@ -241,14 +143,14 @@
         }
       }
     },
-    "/trips/bus": {
+    "/bus": {
       "post": {
         "description": "TODO: Add Description",
-        "summary": "add bus",
+        "summary": "Add bus for trip",
         "tags": [
           "Trips"
         ],
-        "operationId": "TripsBusPost",
+        "operationId": "BusPost",
         "deprecated": false,
         "produces": [
           "application/json"
@@ -315,30 +217,28 @@
             "headers": {}
           }
         }
-      }
-    },
-    "/trips/15": {
-      "patch": {
+      },
+      "get": {
         "description": "TODO: Add Description",
-        "summary": "cancel trip",
+        "summary": "Get all Bus",
         "tags": [
           "Trips"
         ],
-        "operationId": "Trips15Patch",
+        "operationId": "BusGet",
         "deprecated": false,
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "name": "Content-Type",
+            "name": "token",
             "in": "header",
             "required": true,
             "type": "string",
             "description": ""
           },
           {
-            "name": "token",
+            "name": "Content-Type",
             "in": "header",
             "required": true,
             "type": "string",
@@ -353,14 +253,14 @@
         }
       }
     },
-    "/bookings": {
+    "/trips": {
       "post": {
         "description": "TODO: Add Description",
-        "summary": "book trip",
+        "summary": "Post trip",
         "tags": [
-          "Bookings"
+          "Trips"
         ],
-        "operationId": "BookingsPost",
+        "operationId": "TripsPost",
         "deprecated": false,
         "produces": [
           "application/json"
@@ -384,7 +284,7 @@
             "description": ""
           },
           {
-            "name": "trip_id",
+            "name": "bus_id",
             "in": "formData",
             "required": true,
             "type": "integer",
@@ -392,7 +292,28 @@
             "description": ""
           },
           {
-            "name": "seat_number",
+            "name": "origin",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "destination",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "trip_date",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "fare",
             "in": "formData",
             "required": true,
             "type": "integer",
@@ -409,7 +330,124 @@
       },
       "get": {
         "description": "TODO: Add Description",
-        "summary": "get all bookings",
+        "summary": "Get all trips",
+        "tags": [
+          "Trips"
+        ],
+        "operationId": "TripsGet",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/trips/86": {
+      "patch": {
+        "description": "TODO: Add Description",
+        "summary": "Cancel Trip",
+        "tags": [
+          "Trips"
+        ],
+        "operationId": "Trips86Patch",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/bookings": {
+      "post": {
+        "description": "TODO: Add Description",
+        "summary": "Book a trip",
+        "tags": [
+          "Bookings"
+        ],
+        "operationId": "BookingsPost",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "trip_id",
+            "in": "formData",
+            "required": true,
+            "type": "integer",
+            "format": "int32",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      },
+      "get": {
+        "description": "TODO: Add Description",
+        "summary": "Get All Bookings",
         "tags": [
           "Bookings"
         ],
@@ -442,17 +480,54 @@
         }
       }
     },
-    "/bookings/22": {
+    "/bookings/29": {
       "delete": {
         "description": "TODO: Add Description",
-        "summary": "delete booking",
+        "summary": "Delete Booking",
         "tags": [
           "Bookings"
         ],
-        "operationId": "Bookings22Delete",
+        "operationId": "Bookings29Delete",
         "deprecated": false,
         "produces": [
           "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      },
+      "patch": {
+        "description": "TODO: Add Description",
+        "summary": "Change booking seat",
+        "tags": [
+          "Bookings"
+        ],
+        "operationId": "Bookings29Patch",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
         ],
         "parameters": [
           {
@@ -468,6 +543,14 @@
             "required": true,
             "type": "string",
             "description": ""
+          },
+          {
+            "name": "trip_id",
+            "in": "formData",
+            "required": true,
+            "type": "integer",
+            "format": "int32",
+            "description": ""
           }
         ],
         "responses": {
@@ -479,9 +562,14 @@
       }
     }
   },
+  "security": [
+    {
+      "token": []
+    }
+  ],
   "tags": [
     {
-      "name": "Authorization"
+      "name": "Authentication"
     },
     {
       "name": "Trips"

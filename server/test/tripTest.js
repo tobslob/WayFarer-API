@@ -27,7 +27,7 @@ let Token1;
 let Trip_id;
 const tripUrl = '/api/v1/trips';
 const signinUrl = '/api/v1/auth/signin';
-const busUrl = '/api/v1/trips/bus';
+const busUrl = '/api/v1/bus';
 
 
 describe(`POST ${tripUrl}`, () => {
@@ -82,6 +82,38 @@ describe(`POST ${tripUrl}`, () => {
       .post(tripUrl)
       .set('token', Token1)
       .send(correctTripDetails)
+      .end((err, res) => {
+        const { body } = res;
+        expect(res.status).to.equal(403);
+        expect(res.status).to.be.a('number');
+        expect(body).to.be.an('object');
+        expect(body).to.be.have.property('status');
+        expect(body).to.be.have.property('error');
+        expect(body.error).to.be.equal('Unauthorized!, Admin only route');
+        done();
+      });
+  });
+
+  it('should get all bus successfully', (done) => {
+    chai
+      .request(app)
+      .get(busUrl)
+      .set('token', Token)
+      .end((err, res) => {
+        const { body } = res;
+        expect(res.status).to.equal(200);
+        expect(res.status).to.be.a('number');
+        expect(body).to.be.an('object');
+        expect(body).to.be.have.property('status');
+        done();
+      });
+  });
+
+  it('should not get all bus successfully if not admin', (done) => {
+    chai
+      .request(app)
+      .get(busUrl)
+      .set('token', Token1)
       .end((err, res) => {
         const { body } = res;
         expect(res.status).to.equal(403);

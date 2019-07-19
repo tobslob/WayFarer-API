@@ -2,62 +2,11 @@ import db from '../model/Db';
 import CheckForValidInput from '../helper/CheckForValidInput';
 import {
   createTripQuery,
-  createBusQuery,
   getAllTripQuery,
   cancelAtripQuery, checkIfBusIsAvailableQuery, filterTripQuery,
 } from '../model/query/TripQuery';
 
 class Trip {
-  /**
-   * Admin can add bus for a trip
-   * @param {*} req
-   * @param {*} res
-   */
-  static async addBusForTrip(req, res) {
-    // check for admin user
-    if (!req.user.is_admin) {
-      return res.status(403).json({
-        status: 'error',
-        error: 'Unauthorized!, Admin only route',
-      });
-    }
-
-    const { error } = CheckForValidInput.addBusForTrip(req.body);
-    if (error) {
-      return res.status(400).json({
-        status: 'error',
-        error: error.details[0].message,
-      });
-    }
-    const values = [
-      req.body.number_plate,
-      req.body.manufacturer,
-      req.body.model,
-      req.body.year,
-      req.body.capacity,
-      new Date(),
-    ];
-    try {
-      const { rows } = await db.query(createBusQuery, values);
-
-      return res.status(201).json({
-        status: 'success',
-        data: rows[0],
-      });
-    } catch (errors) {
-      if (errors.routine === '_bt_check_unique') {
-        return res.status(409).json({
-          status: 'error',
-          error: 'Bus already exist!',
-        });
-      }
-      return res.status(400).json({
-        status: 'error',
-        error: 'Something went wrong, try again',
-      });
-    }
-  }
-
   /**
    * Admin can create a trip
    * @param {*} req
