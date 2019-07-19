@@ -244,7 +244,6 @@ class Bookings {
         data: userBooking.rows[0],
       });
     } catch (err) {
-      console.log(err);
       return res.status(400).json({
         status: 'error',
         error: 'Something went wrong, try again',
