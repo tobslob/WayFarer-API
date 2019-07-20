@@ -241,7 +241,7 @@ describe(`POST ${tripUrl}`, () => {
         expect(res.status).to.be.a('number');
         expect(body).to.be.an('object');
         expect(body).to.be.have.property('error');
-        expect(body.error).to.be.equal('trip date is required');
+        expect(body.error).to.be.equal('trip date is required in the format "21 January, 2019"');
         done();
       });
   });
@@ -298,7 +298,7 @@ describe(`POST ${busUrl}`, () => {
         expect(res.status).to.be.a('number');
         expect(body).to.be.an('object');
         expect(body).to.be.have.property('error');
-        expect(body.error).to.be.equal('Number plate is required with this Nig format xxx-xxx-xx');
+        expect(body.error).to.be.equal('Number plate is required with this Nig format xxx-xxx-xx "LAG-278-RT"');
         done();
       });
   });

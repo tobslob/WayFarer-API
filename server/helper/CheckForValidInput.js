@@ -60,7 +60,7 @@ class CheckForValidInput {
         .required()
         .error(() => 'destination is required and should not be less than 3 characters and must be lowercase'),
       trip_date: Joi.date().required()
-        .error(() => 'trip date is required'),
+        .error(() => 'trip date is required in the format "21 January, 2019"'),
       fare: Joi.number().required()
         .error(() => 'fare is required and can not be less than $1'),
     });
@@ -76,7 +76,7 @@ class CheckForValidInput {
     const schema = Joi.object().keys({
       number_plate: Joi.string().trim().strict().regex(/^[A-Za-z]{3}-[0-9]{3}-[A-Za-z]{2}$/)
         .required()
-        .error(() => 'Number plate is required with this Nig format xxx-xxx-xx'),
+        .error(() => 'Number plate is required with this Nig format xxx-xxx-xx "LAG-278-RT"'),
       manufacturer: Joi.string().trim().strict().regex(/^[a-zA-Z]+$/)
         .required()
         .error(() => 'bus manufacturer is required'),
