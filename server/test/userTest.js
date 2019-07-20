@@ -194,7 +194,7 @@ describe(`POST ${signupUrl}`, () => {
         expect(res.status).to.be.a('number');
         expect(body).to.be.an('object');
         expect(body).to.be.have.property('error');
-        expect(body.error).to.be.equal('Password field is required with mininum 6 letters and a characters');
+        expect(body.error).to.be.equal('Password with a mininum of 6 letters, a number and a character');
         done();
       });
   });
@@ -210,7 +210,7 @@ describe(`POST ${signupUrl}`, () => {
         expect(res.status).to.be.a('number');
         expect(body).to.be.an('object');
         expect(body).to.be.have.property('error');
-        expect(body.error).to.be.equal('Password field is required with mininum 6 letters and a characters');
+        expect(body.error).to.be.equal('Password with a mininum of 6 letters, a number and a character');
         done();
       });
   });
