@@ -13,6 +13,7 @@ import {
   undefinedNumberPlate, undefinedBusManufacturer, undefinedBusModel, undefinedBusYear,
   undefinedBusCapacity,
   conflictTripDetails,
+  invalidTripDetails,
 } from './mockData/mockTrip';
 
 
@@ -72,6 +73,22 @@ describe(`POST ${tripUrl}`, () => {
         expect(body.data).to.be.have.property('destination');
         expect(body.data).to.be.have.property('trip_date');
         expect(body.data).to.be.have.property('status');
+        done();
+      });
+  });
+
+  it('should return 400 error with wrong trip date', (done) => {
+    chai
+      .request(app)
+      .post(tripUrl)
+      .set('token', Token)
+      .send(invalidTripDetails)
+      .end((err, res) => {
+        const { body } = res;
+        expect(res.status).to.equal(400);
+        expect(res.status).to.be.a('number');
+        expect(body).to.be.an('object');
+        expect(body.error).to.equals('Invalid trip date');
         done();
       });
   });

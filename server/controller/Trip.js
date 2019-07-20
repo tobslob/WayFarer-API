@@ -53,6 +53,12 @@ class Trip {
         data: rows[0],
       });
     } catch (errors) {
+      if (errors.routine === 'DateTimeParseError') {
+        return res.status(400).json({
+          status: 'error',
+          error: 'Invalid trip date',
+        });
+      }
       if (errors.routine === 'ri_ReportViolation') {
         return res.status(400).json({
           status: 'error',
@@ -65,6 +71,7 @@ class Trip {
       });
     }
   }
+
 
   /**
    * Admin and user can get all trip
