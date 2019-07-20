@@ -6,6 +6,14 @@ const correctTripDetails = {
   fare: 4300,
 };
 
+const invalidTripDetails = {
+  bus_id: 179,
+  origin: 'yaba',
+  destination: 'ikoyi',
+  trip_date: 'Dece 17, 1995 03:24:00',
+  fare: 4300,
+};
+
 const conflictTripDetails = {
   bus_id: 179,
   origin: 'yaba',
@@ -104,5 +112,5 @@ export {
   correctTripDetails, undefinedTripBusId, incorrectTripBusId, undefinedTripOrigin,
   undefinedTripDestination, undefinedTripDate, undefinedTripFare, correctBusDetails,
   undefinedNumberPlate, undefinedBusManufacturer, undefinedBusModel, undefinedBusYear,
-  undefinedBusCapacity, conflictTripDetails,
+  undefinedBusCapacity, conflictTripDetails, invalidTripDetails,
 };
